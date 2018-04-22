@@ -1,4 +1,4 @@
-# ![Picture](./misc/res/banner.png)
+# ![Picture](https://raw.githubusercontent.com/Chris6077/Eventify/master/misc/res/banner.png)
 
 # Description
 
