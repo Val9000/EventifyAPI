@@ -47,6 +47,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import static javax.ws.rs.client.Entity.json;
 import static org.hibernate.validator.internal.engine.messageinterpolation.el.RootResolver.FORMATTER;
 
@@ -92,6 +93,15 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         entityToReturn = gson.fromJson(collection.find(filterExpression).projection(fields(Projections.excludeId())).first().toJson(), entityClass);
         if (entityToReturn == null) return null; // means couldn't find anything
         return entityToReturn;
+    }
+    
+    @Override
+    public List<T> getAllFilter(Bson filterExpression) {
+        List<T> listToReturn = new ArrayList<>(); 
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId()));
+        for(Document doc : col) listToReturn.add(gson.fromJson(doc.toJson(), entityClass));
+        return listToReturn;
     }
 
     // maps document results into a list of objects

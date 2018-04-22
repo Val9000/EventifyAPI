@@ -23,6 +23,9 @@ import com.mongodb.client.model.Projections;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import data.dao.EventMongoConcrete;
 import data.models.Event;
+import java.util.List;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 
 /**
@@ -31,18 +34,21 @@ import javax.ws.rs.Produces;
  */
 @Path("/events")
 public class EventService 
-
 {
-    /*
+    private EventMongoConcrete emc = null;
+    public EventService(){
+        emc = EventMongoConcrete.getInstance();
+    }
     // URI:
     // /contextPath/servletPath/employees
     @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Employee> getEmployees_JSON() {
-        List<Employee> listOfCountries = EmployeeDAO.getAllEmployees();
-        return listOfCountries;
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getEvents() {
+        return new Gson().toJson(emc.getAllFilter(new Document()));
     }
- 
+    
+    
+    /*
     // URI:
     // /contextPath/servletPath/employees/{empNo}
     @GET
@@ -56,23 +62,37 @@ public class EventService
     // URI:
     // /contextPath/servletPath/employees
     
-    @POST
+   @POST
     @Produces({MediaType.APPLICATION_JSON})
-    public String addEmployee(String content) {
-        EventMongoConcrete emc = EventMongoConcrete.getInstance();
-        Event temp = new Gson().fromJson(content, Event.class);
-        return emc.add(temp);
+    public String addEvent(String content) {
+        String eId = "";
+        try {
+            Event temp = new Gson().fromJson(content, Event.class);
+            Event newEvent = new Event(temp.getName(),temp.getCreatorID(),temp.getState(), temp.getDescription(), temp.getMaxParticipants(), temp.getMinAge(), temp.getType(), temp.getCategory(), temp.getStartDate(), temp.getEndDate());
+            eId = emc.add(temp);
+            newEvent.setEID(eId);
+            emc.update(Filters.eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
+            System.out.println("*******added new event from userID " + temp.getCreatorID() + "******");
+        } catch (Exception e) {
+            return "Add - Event - Error : " + e.getMessage(); // falsch verbessern : valid json !!
+        }
+        return eId;
     }
     
-    // URI:
+    //URI:
     // /contextPath/servletPath/employees
-    /*@PUT
-    @Produces({MediaType.APPLICATION_JSON})
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON}) // später evtl. nur bestimmte fields mitschicken und nicht alles.. mom. irrelevant
     public String updateEmployee(String content) {
-        EventMongoConcrete emc = new EventMongoConcrete();
-        emc.update(filterQuery, updateObject);
-        return ;
-    }*/
+        try {
+            Event temp = new Gson().fromJson(content, Event.class);
+            EventMongoConcrete emc = EventMongoConcrete.getInstance();
+            emc.update(Filters.eq("eID", temp.getEID()), new Document("$set", content));
+        } catch (Exception e) {
+            return "";
+        }
+        return "";
+    }
  
    
     // deaktivieren... 
