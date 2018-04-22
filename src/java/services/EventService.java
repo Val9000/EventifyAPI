@@ -23,6 +23,7 @@ import com.mongodb.client.model.Projections;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import data.dao.EventMongoConcrete;
 import data.models.Event;
+import javax.ws.rs.Produces;
 
 /**
  *
@@ -55,25 +56,28 @@ public class EventService
     // URI:
     // /contextPath/servletPath/employees
     
-    /*@POST
-    @Produces({ MediaType.APPLICATION_JSON})
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
     public String addEmployee(String content) {
         EventMongoConcrete emc = new EventMongoConcrete();
-        return emc.add(new Event());
+        Event temp = new Gson().fromJson(content, Event.class);
+        return emc.add(temp);
     }
-    /*
+    
     // URI:
     // /contextPath/servletPath/employees
-    @PUT
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Employee updateEmployee(Employee emp) {
-        return EmployeeDAO.updateEmployee(emp);
-    }
+    /*@PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    public String updateEmployee(String content) {
+        EventMongoConcrete emc = new EventMongoConcrete();
+        emc.update(filterQuery, updateObject);
+        return ;
+    }*/
  
    
     // deaktivieren... 
     
-     
+     /*
     @DELETE
     @Path("/{empNo}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

@@ -1,10 +1,10 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package data.models;
-
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,6 +14,7 @@ import java.time.LocalDate;
  * @author Chris
  */
 public class Event implements Serializable {
+    private String eID;
     private String name;
     private String creatorID;
     private EventState state;
@@ -41,6 +42,14 @@ public class Event implements Serializable {
         this.endDate = endDate;
         this.created = LocalDate.now();
         this.lastEdited = LocalDate.now();
+    }
+    
+    public String getEID() {
+        return eID;
+    }
+    
+    public void setEID(String eID) {
+        this.eID = eID;
     }
 
     public String getName() {
@@ -141,6 +150,6 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "{ 'name': '" + name + "', 'creatorID': '" + creatorID + "', 'state': '" + state + "', 'description': '" + description + "', 'maxParticipants': '" + maxParticipants + "', 'minAge': '" + minAge + "', 'type': '" + type + "', 'category': '" + category + "', 'startDate': '" + startDate + "', 'endDate': '" + endDate + "', 'created': '" + created + "', 'lastEdited': '" + lastEdited + "', 'location': '" + location + "' }";
+        return "{ 'eID': '" + eID + "', 'name': '" + name + "', 'creatorID': '" + creatorID + "', 'state': '" + state + "', 'description': '" + description + "', 'maxParticipants': '" + maxParticipants + "', 'minAge': '" + minAge + "', 'type': '" + type + "', 'category': '" + category + "', 'startDate': '" + startDate + "', 'endDate': '" + endDate + "', 'created': '" + created + "', 'lastEdited': '" + lastEdited + "', 'location': '" + location + "' }";
     }
 }
