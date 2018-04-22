@@ -34,7 +34,7 @@ public class Register {
         try {             
             User temp = new Gson().fromJson(content, User.class);
             User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), temp.getPassword(), temp.getProfilePicture());
-            UserMongoConcrete umc = new UserMongoConcrete();
+            UserMongoConcrete umc = UserMongoConcrete.getInstance();
             uId = umc.add(newUser);
             newUser.setUID(uId);
             umc.update(Filters.eq("_id", new ObjectId(uId)), new Document("$set", new Document("uID", uId))); 

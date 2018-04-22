@@ -59,7 +59,7 @@ public class EventService
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     public String addEmployee(String content) {
-        EventMongoConcrete emc = new EventMongoConcrete();
+        EventMongoConcrete emc = EventMongoConcrete.getInstance();
         Event temp = new Gson().fromJson(content, Event.class);
         return emc.add(temp);
     }

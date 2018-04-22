@@ -33,7 +33,7 @@ public class Login {
     public boolean login(String content) throws Exception {
         try {
             HandleObjectLogin hol = new Gson().fromJson(content, HandleObjectLogin.class);
-            UserMongoConcrete umc = new UserMongoConcrete();
+            UserMongoConcrete umc = UserMongoConcrete.getInstance();
             User temp = umc.getOneFilter(Filters.and(Filters.eq("username", hol.getUsername()), Filters.eq("password", hol.getPassword())));
             
             if(temp==null) return false;
