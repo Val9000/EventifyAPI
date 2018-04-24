@@ -1,5 +1,6 @@
 package data.dao;
 
+import Util.Utilities.LocalDateAdapter;
 import java.io.Reader;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         UpdateResult res = collection.updateOne(filterQuery, updateObject);
         System.err.println(res);
     }
-
+    
     public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> { // evtl. ins extra file -> Util rein
 
         @Override
@@ -138,7 +139,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
             return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
         }
     }
-
 }
 
 // TESTING Parser fo GSN

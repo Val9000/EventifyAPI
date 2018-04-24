@@ -6,9 +6,19 @@
 package Util;
 
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -16,21 +26,16 @@ import java.security.NoSuchAlgorithmException;
  * @author Valon
  */
 public class Utilities {
+    public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> { // evtl. ins extra file -> Util rein
 
-    public static String get_SHA_512_SecurePassword(String passwordToHash, String salt) {
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        @Override
+        public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)); // "yyyy-mm-dd"
         }
-        return generatedPassword;
+
+        @Override
+        public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
+        }
     }
 }
