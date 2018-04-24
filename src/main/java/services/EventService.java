@@ -74,9 +74,9 @@ public class EventService
             emc.update(Filters.eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
             System.out.println("*******added new event from userID " + temp.getCreatorID() + "******");
         } catch (Exception e) {
-            return "Add - Event - Error : " + e.getMessage(); // falsch verbessern : valid json !!
+            return new Document("error", "Add - Event - Error : " + e.getMessage()).toJson(); // falsch verbessern : valid json !!
         }
-        return eId;
+        return new Document("eID", eId).toJson();
     }
     
     //URI:
@@ -89,9 +89,9 @@ public class EventService
             EventMongoConcrete emc = EventMongoConcrete.getInstance();
             emc.update(Filters.eq("eID", temp.getEID()), new Document("$set", content));
         } catch (Exception e) {
-            return "";
+            return new Document("error", e.getMessage()).toJson();
         }
-        return "";
+        return new Document("success", "Event has been modified").toJson();
     }
  
    

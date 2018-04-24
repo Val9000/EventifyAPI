@@ -41,8 +41,8 @@ public class Register {
             umc.update(Filters.eq("_id", new ObjectId(uId)), new Document("$set", new Document("uID", uId))); 
             System.out.println("*******added new user product*******");
         } catch (Exception e) {
-            return "Register - Error : " + e.getMessage();
+            return new Document("error", e.getMessage()).toJson();
         }
-        return uId;
+        return new Document("uID", uId).toJson();
     }
 }
