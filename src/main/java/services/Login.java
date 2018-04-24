@@ -31,22 +31,21 @@ public class Login {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean login(String content) throws Exception {
+    public String login(String content) throws Exception {
         try {
             HandleObjectLogin hol = new Gson().fromJson(content, HandleObjectLogin.class);
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
-            User temp = umc.getOneFilter(Filters.and(Filters.eq("username", hol.getUsername()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
+            User temp = umc.getOneFilter(Filters.and(Filters.eq("username", hol.getIdentifier()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
             if(temp==null){
-                //temp = umc.getOneFilter(Filters.and(Filters.eq("email", hol.getEmail()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
-                if(temp==null) return false;
-            }
-            
-        }catch (Exception ex) {
+                temp = umc.getOneFilter(Filters.and(Filters.eq("email", hol.getIdentifier()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
+                if(temp==null) return (new Document("error", "Invalid username/email or password")).toJson();
+            } else return (new Document("uID", temp.getUID())).toJson();
+        } catch (Exception ex) {
             printStackTrace();
             System.out.println(ex.getMessage());
-            return false;
+            return (new Document("error", ex.getMessage())).toJson();
         }
-        return true;
+        return (new Document("error", "Invalid username/email or password")).toJson();
     }
 }
 
@@ -60,7 +59,7 @@ class HandleObjectLogin {
         password = _password;
     }
 
-    public String getUsername() {
+    public String getIdentifier() {
         return username;
     }
 
