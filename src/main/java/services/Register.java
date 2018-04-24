@@ -37,7 +37,8 @@ public class Register {
         String uId = "";
         try {             
             User temp = new Gson().fromJson(content, User.class);
-            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(temp.getPassword(), BCrypt.gensalt(7)), temp.getProfilePicture());
+            String x = BCrypt.hashpw(temp.getPassword(), "$2a$07$2dq0/4gdywDsSSZnTcUVWu"); // for simulation , gehört zum client 
+            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
             uId = umc.add(newUser);
             newUser.setUID(uId);

@@ -1,6 +1,7 @@
 package data.dao;
 
-import Util.Utilities.LocalDateAdapter;
+import Util.LocalDateAdapter;
+
 import java.io.Reader;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -90,8 +91,9 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     public T getOneFilter(Bson filterExpression) {
         T entityToReturn;
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        entityToReturn = gson.fromJson(collection.find(filterExpression).projection(fields(Projections.excludeId())).first().toJson(), entityClass);
-        if (entityToReturn == null) return null; // means couldn't find anything
+        Document first = collection.find(filterExpression).projection(fields(Projections.excludeId())).first();
+        if(first == null) return null; // means couldn't find anything
+        entityToReturn = gson.fromJson(first.toJson(), entityClass);
         return entityToReturn;
     }
     
@@ -127,18 +129,7 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         System.err.println(res);
     }
     
-    public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> { // evtl. ins extra file -> Util rein
-
-        @Override
-        public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
-            return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)); // "yyyy-mm-dd"
-        }
-
-        @Override
-        public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-            return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
-        }
-    }
+   
 }
 
 // TESTING Parser fo GSN
