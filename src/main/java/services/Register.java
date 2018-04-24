@@ -19,6 +19,7 @@ import org.bson.BSONObject;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Register {
         String uId = "";
         try {             
             User temp = new Gson().fromJson(content, User.class);
-            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), temp.getPassword(), temp.getProfilePicture());
+            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(temp.getPassword(), BCrypt.gensalt(7)), temp.getProfilePicture());
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
             uId = umc.add(newUser);
             newUser.setUID(uId);

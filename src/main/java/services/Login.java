@@ -21,6 +21,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Valon
@@ -34,9 +35,11 @@ public class Login {
         try {
             HandleObjectLogin hol = new Gson().fromJson(content, HandleObjectLogin.class);
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
-            User temp = umc.getOneFilter(Filters.and(Filters.eq("username", hol.getUsername()), Filters.eq("password", hol.getPassword())));
-            
-            if(temp==null) return false;
+            User temp = umc.getOneFilter(Filters.and(Filters.eq("username", hol.getUsername()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
+            if(temp==null){
+                //temp = umc.getOneFilter(Filters.and(Filters.eq("email", hol.getEmail()), Filters.eq("password", BCrypt.hashpw(hol.getPassword(), BCrypt.gensalt(7)))));
+                if(temp==null) return false;
+            }
             
         }catch (Exception ex) {
             printStackTrace();
