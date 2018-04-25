@@ -30,7 +30,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author Valon
  */
-@Path("Login")
+@Path("login")
 public class Login {
 
     @POST
