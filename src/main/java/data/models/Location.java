@@ -5,32 +5,39 @@
  */
 package data.models;
 
-
-import java.io.Serializable;
+import com.google.gson.Gson;
 
 /**
  *
  * @author Chris
  */
-public class Location implements Serializable {
-    private final String lat;
-    private final String lon;
-    
-    public Location(String lat, String lon){
+public class Location {
+    private double lat;
+    private double lon;
+
+    public Location(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public String getLon() {
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
         return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
     @Override
     public String toString() {
-        return "{ 'lat': '" + lat + "', 'lon': '" + lon + "' }";
-    }
+        return new Gson().toJson(this);
+    }   
 }

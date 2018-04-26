@@ -68,7 +68,7 @@ public class Login {
            
             System.out.println("services.Login.login() : " + BCrypt.checkpw(hol.getPassword(),temp.getPassword()));
             if (BCrypt.checkpw(hol.getPassword(),temp.getPassword())) {
-                return (new Document("uID", temp.getUID())).toJson();
+                return (new Document("uID", temp.getuID())).toJson();
             }
 
         } catch (Exception ex) {

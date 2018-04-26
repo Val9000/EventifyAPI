@@ -5,53 +5,64 @@
  */
 package data.models;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  *
  * @author Chris
  */
-public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+import com.google.gson.Gson;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+/**
+ *
+ * @author Chris
+ */
+public class User {
     private String uID;
-    private final String firstName;
-    private final String lastName;
-    private final LocalDate birthDate;
-    private String username;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthdate;
     private String email;
     private String password;
     private String profilePicture;
-    private UserType type;
     private UserState state;
-    private final LocalDate created;
-    private LocalDate lastEdited;
-    private int numberOfCreatedEvents;
+    private UserType type;
+    private int numberOfCreated;
     private int numberOfParticipated;
+    private ArrayList<Integer> ratings;
+    private int totalFollowers;
+    private LocalDate created;
+    private LocalDate lastEdited;
+    private HashMap<String, SlimUser> follows;
+    private HashMap<String, SlimEvent> likes;
+    private HashMap<String, SlimEvent> participatesIn;
 
-    public User(String firstName, String lastName, LocalDate birthDate, String username, String email, String password, String profilePicture) {
+    public User(String firstName, String lastName, LocalDate birthdate, String email, String password, String profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.username = username;
+        this.birthdate = birthdate;
         this.email = email;
         this.password = password;
         this.profilePicture = profilePicture;
-        type = UserType.User;
-        state = UserState.Activated;
-        created = LocalDate.now();
-        lastEdited = LocalDate.now();
-        numberOfCreatedEvents = 0;
-        numberOfParticipated = 0;
+        this.state = UserState.Activated;
+        this.type = UserType.User;
+        this.numberOfCreated = 0;
+        this.numberOfParticipated = 0;
+        this.ratings = new ArrayList<>();
+        this.totalFollowers = 0;
+        this.created = LocalDate.now();
+        this.lastEdited = LocalDate.now();
+        this.follows = new HashMap<>();
+        this.likes = new HashMap<>();
+        this.participatesIn = new HashMap<>();
     }
-    
-    public String getUID(){
+
+    public String getuID() {
         return uID;
-    }
-    
-    public void setUID(String uID){
-        this.uID = uID;
     }
 
     public String getFirstName() {
@@ -62,12 +73,8 @@ public class User implements Serializable {
         return lastName;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public String getUsername() {
-        return username;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
     public String getEmail() {
@@ -82,12 +89,28 @@ public class User implements Serializable {
         return profilePicture;
     }
 
+    public UserState getState() {
+        return state;
+    }
+
     public UserType getType() {
         return type;
     }
 
-    public UserState getState() {
-        return state;
+    public int getNumberOfCreated() {
+        return numberOfCreated;
+    }
+
+    public int getNumberOfParticipated() {
+        return numberOfParticipated;
+    }
+
+    public Collection<Integer> getRatings() {
+        return ratings;
+    }
+
+    public int getTotalFollowers() {
+        return totalFollowers;
     }
 
     public LocalDate getCreated() {
@@ -98,16 +121,21 @@ public class User implements Serializable {
         return lastEdited;
     }
 
-    public int getNumberOfCreatedEvents() {
-        return numberOfCreatedEvents;
+
+    public void setuID(String uID) {
+        this.uID = uID;
     }
 
-    public int getNumberOfParticipated() {
-        return numberOfParticipated;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     public void setEmail(String email) {
@@ -122,28 +150,58 @@ public class User implements Serializable {
         this.profilePicture = profilePicture;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
-    }
-
     public void setState(UserState state) {
         this.state = state;
     }
 
-    public void setLastEdited(LocalDate lastEdited) {
-        this.lastEdited = lastEdited;
+    public void setType(UserType type) {
+        this.type = type;
     }
 
-    public void setNumberOfCreatedEvents(int numberOfCreatedEvents) {
-        this.numberOfCreatedEvents = numberOfCreatedEvents;
+    public void setNumberOfCreated(int numberOfCreated) {
+        this.numberOfCreated = numberOfCreated;
     }
 
     public void setNumberOfParticipated(int numberOfParticipated) {
         this.numberOfParticipated = numberOfParticipated;
     }
 
+    public void setRatings(Collection<Integer> ratings) {
+        this.ratings = (ArrayList<Integer>) ratings;
+    }
+
+    public void setTotalFollowers(int totalFollowers) {
+        this.totalFollowers = totalFollowers;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public void setLastEdited(LocalDate lastEdited) {
+        this.lastEdited = lastEdited;
+    }
+
+   
+    public HashMap<String, SlimEvent> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(HashMap<String, SlimEvent> likes) {
+        this.likes = likes;
+    }
+
+    public HashMap<String, SlimEvent> getParticipatesIn() {
+        return participatesIn;
+    }
+
+    public void setParticipatesIn(HashMap<String, SlimEvent> participatesIn) {
+        this.participatesIn = participatesIn;
+    }
+    
+
     @Override
     public String toString() {
-        return "{ 'uID': '" + uID + "', 'firstName': '" + firstName + "', 'lastName': '" + lastName + "', 'birthDate': '" + birthDate + "', 'username': '" + username + "', 'email': '" + email + "', 'password': '" + password + "', 'profilePicture': '" + profilePicture + "', 'type': '" + type + "', 'state': '" + state + "', 'created': '" + created + "', 'lastEdited': '" + lastEdited + "', 'numberOfCreatedEvents': '" + numberOfCreatedEvents + "', 'numberOfParticipated': '" + numberOfParticipated + "' }";
-    }
+        return new Gson().toJson(this);
+    }   
 }

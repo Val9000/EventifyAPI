@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,82 +5,77 @@
  */
 package data.models;
 
-import java.io.Serializable;
+import com.google.gson.Gson;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
  * @author Chris
  */
-public class Event implements Serializable {
+public class Event {
     private String eID;
     private String name;
-    private String creatorID;
-    private EventState state;
     private String description;
-    private int maxParticipants;
+    private int maxParticipators;
     private int minAge;
-    private EventType type;
-    private EventCategory category;
+    private int totalLikes;
+    private int totalParticipators;
     private LocalDate startDate;
     private LocalDate endDate;
-    private final LocalDate created;
+    private LocalDate created;
     private LocalDate lastEdited;
-    private Location location;
+    private EventType type;
+    private EventState state;
+    private EventCategory category;
+    private ArrayList<MinimalUser> participators;
+    private MinimalUser creator;
 
-    public Event(String name, String creatorID, EventState state, String description, int maxParticipants, int minAge, EventType type, EventCategory category, LocalDate startDate, LocalDate endDate) {
+    public Event(String name, String description, int maxParticipators, int minAge, LocalDate startDate, LocalDate endDate, EventType type, EventCategory category, MinimalUser creator) {
         this.name = name;
-        this.creatorID = creatorID;
-        this.state = state;
         this.description = description;
-        this.maxParticipants = maxParticipants;
+        this.maxParticipators = maxParticipators;
         this.minAge = minAge;
-        this.type = type;
-        this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = type;
+        this.category = category;
+        this.creator = creator;
+        this.totalLikes = 0;
+        this.totalParticipators = 0;
         this.created = LocalDate.now();
         this.lastEdited = LocalDate.now();
+        this.state = EventState.Unconfirmed;
+        this.participators = new ArrayList<>();
     }
-    
-    public String getEID() {
+
+    public String geteID() {
         return eID;
-    }
-    
-    public void setEID(String eID) {
-        this.eID = eID;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getCreatorID() {
-        return creatorID;
-    }
-
-    public EventState getState() {
-        return state;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public int getMaxParticipants() {
-        return maxParticipants;
+    public int getMaxParticipators() {
+        return maxParticipators;
     }
 
     public int getMinAge() {
         return minAge;
     }
 
-    public EventType getType() {
-        return type;
+    public int getTotalLikes() {
+        return totalLikes;
     }
 
-    public EventCategory getCategory() {
-        return category;
+    public int getTotalParticipators() {
+        return totalParticipators;
     }
 
     public LocalDate getStartDate() {
@@ -100,32 +94,52 @@ public class Event implements Serializable {
         return lastEdited;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public EventType getType() {
+        return type;
     }
 
-    public void setState(EventState state) {
-        this.state = state;
+    public EventState getState() {
+        return state;
+    }
+
+    public EventCategory getCategory() {
+        return category;
+    }
+
+    public Collection<MinimalUser> getParticipators() {
+        return participators;
+    }
+
+    public MinimalUser getCreator() {
+        return creator;
+    }
+
+    public void seteID(String eID) {
+        this.eID = eID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setMaxParticipants(int maxParticipants) {
-        this.maxParticipants = maxParticipants;
+    public void setMaxParticipators(int maxParticipators) {
+        this.maxParticipators = maxParticipators;
     }
 
     public void setMinAge(int minAge) {
         this.minAge = minAge;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
     }
 
-    public void setCategory(EventCategory category) {
-        this.category = category;
+    public void setTotalParticipators(int totalParticipators) {
+        this.totalParticipators = totalParticipators;
     }
 
     public void setStartDate(LocalDate startDate) {
@@ -136,20 +150,55 @@ public class Event implements Serializable {
         this.endDate = endDate;
     }
 
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
     public void setLastEdited(LocalDate lastEdited) {
         this.lastEdited = lastEdited;
     }
 
-    public Location getLocation() {
-        return location;
+    public void setType(EventType type) {
+        this.type = type;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setState(EventState state) {
+        this.state = state;
     }
 
+    public void setCategory(EventCategory category) {
+        this.category = category;
+    }
+
+    public void setParticipators(Collection<MinimalUser> participators) {
+        this.participators = (ArrayList<MinimalUser>) participators;
+    }
+
+    public void setCreator(MinimalUser creator) {
+        this.creator = creator;
+    }
+    
     @Override
-    public String toString() {
-        return "{ 'eID': '" + eID + "', 'name': '" + name + "', 'creatorID': '" + creatorID + "', 'state': '" + state + "', 'description': '" + description + "', 'maxParticipants': '" + maxParticipants + "', 'minAge': '" + minAge + "', 'type': '" + type + "', 'category': '" + category + "', 'startDate': '" + startDate + "', 'endDate': '" + endDate + "', 'created': '" + created + "', 'lastEdited': '" + lastEdited + "', 'location': '" + location + "' }";
+    public String toString(){
+        return new Gson().toJson(this);
     }
+
 }
+
+//
+//{	
+//	"name":"UltrFetteParty",
+//	"description":"keine ahnung",
+//	"maxParticipators":"18",
+//	"minAge":"18",
+//	"startDate":{"year":2018,"month":4,"day":22},
+//	"endDate":{"year":2018,"month":4,"day":22},
+//	"type":"Public",
+//	"category":"Party",
+//	"creator":{
+//			   "uID": "5adf87606570440928a6aa9e",
+//			   "firstName": "Peter",
+//			   "lastName": "Berisa",
+//			   "profilePicture": "mypic.com/x.png"
+//			 }
+//}

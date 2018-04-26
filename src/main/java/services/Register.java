@@ -38,10 +38,11 @@ public class Register {
         try {             
             User temp = new Gson().fromJson(content, User.class);
             String x = BCrypt.hashpw(temp.getPassword(), "$2a$07$2dq0/4gdywDsSSZnTcUVWu"); // for simulation , gehört zum client 
-            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
+            //User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
+            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthdate(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
             uId = umc.add(newUser);
-            newUser.setUID(uId);
+            newUser.setuID(uId);
             umc.update(Filters.eq("_id", new ObjectId(uId)), new Document("$set", new Document("uID", uId))); 
             System.out.println("*******added new user product*******");
         } catch (Exception e) {
