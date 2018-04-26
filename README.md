@@ -1,4 +1,4 @@
-# ![Picture](https://raw.githubusercontent.com/Chris6077/Eventify/master/misc/res/banner.png)
+# ![Picture](https://raw.githubusercontent.com/Chris6077/Eventify/master/misc/res/banners/banner_api.png)
 
 # Description
 
@@ -38,3 +38,15 @@ Our services are Java based and will be deployed on herokuapp.
 * GSON
 * JSON
 * MongoDB Java Driver Core
+
+# App
+
+Our app is Java based and programmed in Android Studio.
+
+* *[Repository](https://github.com/Chris6077/Eventify)*
+
+### Tags
+* Graddle
+* Android Studio
+* GSON
+* JSON
