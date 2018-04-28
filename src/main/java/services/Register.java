@@ -28,7 +28,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author Valon
  */
-@Path("Register")
+@Path("register")
 public class Register {
 
     @POST

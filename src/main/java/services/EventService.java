@@ -99,7 +99,7 @@ public class EventService {
     @GET
     @Path("/{eID}/like")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getEmployee(@PathParam("eID") String eID, @Context HttpHeaders headers) {
+    public String dis_like(@PathParam("eID") String eID, @Context HttpHeaders headers) {
         try {
             Event e = emc.getOneFilter(Filters.eq("eID", eID));
             emc.update(Filters.eq("eID", eID), new Document("$set", new Document("totalLikes", e.getTotalLikes() + 1)));

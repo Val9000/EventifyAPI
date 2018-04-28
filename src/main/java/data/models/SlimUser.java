@@ -11,6 +11,7 @@ package data.models;
  * and open the template in the editor.
  */
 
+import com.google.gson.Gson;
 import java.time.LocalDate;
 
 /**
