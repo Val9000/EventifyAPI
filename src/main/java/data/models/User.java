@@ -37,9 +37,9 @@ public class User {
     private int totalFollowers;
     private LocalDate created;
     private LocalDate lastEdited;
-    private HashMap<String, SlimUser> follows;
-    private HashMap<String, SlimEvent> likes;
-    private HashMap<String, SlimEvent> participatesIn;
+    private ArrayList<SlimEvent> follows;
+    private ArrayList<SlimEvent> likes;
+    private ArrayList<SlimEvent> participatesIn;
 
     public User(String firstName, String lastName, LocalDate birthdate, String email, String password, String profilePicture) {
         this.firstName = firstName;
@@ -56,9 +56,9 @@ public class User {
         this.totalFollowers = 0;
         this.created = LocalDate.now();
         this.lastEdited = LocalDate.now();
-        this.follows = new HashMap<>();
-        this.likes = new HashMap<>();
-        this.participatesIn = new HashMap<>();
+        this.follows = new ArrayList<>();
+        this.likes = new ArrayList<>();
+        this.participatesIn = new ArrayList<>();
     }
 
     public String getuID() {
@@ -183,21 +183,17 @@ public class User {
     }
 
    
-    public HashMap<String, SlimEvent> getLikes() {
-        return likes;
-    }
+    
 
-    public void setLikes(HashMap<String, SlimEvent> likes) {
-        this.likes = likes;
-    }
-
-    public HashMap<String, SlimEvent> getParticipatesIn() {
+    public ArrayList<SlimEvent> getParticipatesIn() {
         return participatesIn;
     }
 
-    public void setParticipatesIn(HashMap<String, SlimEvent> participatesIn) {
+    public void setParticipatesIn(ArrayList<SlimEvent> participatesIn) {
         this.participatesIn = participatesIn;
     }
+
+    
     
 
     @Override

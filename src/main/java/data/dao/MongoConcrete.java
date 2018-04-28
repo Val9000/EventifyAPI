@@ -88,20 +88,20 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     }
 
     @Override
-    public T getOneFilter(Bson filterExpression) {
+    public T getOneFilter(Bson filterExpression, Bson _projection) {
         T entityToReturn;
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        Document first = collection.find(filterExpression).projection(fields(Projections.excludeId())).first();
+        Document first = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection)).first();
         if(first == null) return null; // means couldn't find anything
         entityToReturn = gson.fromJson(first.toJson(), entityClass);
         return entityToReturn;
     }
     
     @Override
-    public List<T> getAllFilter(Bson filterExpression) {
+    public List<T> getAllFilter(Bson filterExpression, Bson _projection) {
         List<T> listToReturn = new ArrayList<>(); 
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId()));
+        FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection));
         for(Document doc : col) listToReturn.add(gson.fromJson(doc.toJson(), entityClass));
         return listToReturn;
     }

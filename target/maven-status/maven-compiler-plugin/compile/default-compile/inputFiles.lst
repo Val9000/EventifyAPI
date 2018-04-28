@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\EventType.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\dao\RatingMongoConcrete.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\Event.java
@@ -22,35 +21,9 @@ C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\SlimEvent.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\MinimalUser.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\ParticipationType.java
+C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\SlimUser.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\services\ApplicationConfig.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\services\Register.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\Util\LocalDateAdapter.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\Rating.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\Participation.java
-=======
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\MongoConcrete.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\RatingMongoConcrete.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\services\EventService.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\EventMongoConcrete.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\services\Login.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\Follow.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\services\ApplicationConfig.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\EventCategory.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\Event.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\UserType.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\Util\LocalDateAdapter.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\Participation.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\UserMongoConcrete.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\User.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\EventState.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\FollowMongoConcrete.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\UserState.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\Util\Utilities.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\IMongoAccess.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\services\Register.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\ParticipationType.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\EventType.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\Location.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\models\Rating.java
-D:\Documents\GitHub\EventifyAPI\src\main\java\data\dao\ParticipateMongoConcrete.java
->>>>>>> 44496209305f03b2284fe9f0ae3ebc47a3099e8a

@@ -8,9 +8,9 @@ interface IMongoAccess<T> {
 
         String add(T entity);
 
-	T getOneFilter(Bson filterQuery);
+	T getOneFilter(Bson filterQuery, Bson _projection);
         
-        List<T> getAllFilter(Bson filterQuery);
+        List<T> getAllFilter(Bson filterQuery, Bson _projection);
 	
 	List<T> getLimitedFilteredResult(Bson filter, int limit);
 	

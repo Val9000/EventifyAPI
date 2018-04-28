@@ -6,12 +6,13 @@
 package data.models;
 
 import com.google.gson.Gson;
+import java.io.Serializable;
 
 /**
  *
  * @author Chris
  */
-public class SlimEvent {
+public class SlimEvent implements Serializable{
     private String eID;
     private String name;
     private int totalLikes;

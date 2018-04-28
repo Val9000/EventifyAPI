@@ -57,10 +57,10 @@ public class Login {
             hol.setPassword(BCrypt.hashpw(hol.getPassword(), "$2a$07$2dq0/4gdywDsSSZnTcUVWu")); // simulation : pretend this was done by the client xD boi
             System.out.println("password * " + hol.getPassword());
             UserMongoConcrete umc = UserMongoConcrete.getInstance();
-            User temp = umc.getOneFilter(Filters.eq("username", hol.getUsername()));
+            User temp = umc.getOneFilter(Filters.eq("username", hol.getUsername()),new Document());
 
             if (temp == null) {
-                temp = umc.getOneFilter(Filters.eq("email", hol.getEmail()));
+                temp = umc.getOneFilter(Filters.eq("email", hol.getEmail()),new Document());
                 if (temp == null) {
                     return (new Document("error", "Invalid username/email or password")).toJson();
                 }

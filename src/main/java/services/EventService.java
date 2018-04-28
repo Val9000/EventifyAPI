@@ -46,21 +46,19 @@ import javax.ws.rs.core.HttpHeaders;
  * @author Valon
  */
 @Path("/events")
-public class EventService {
+public class EventService implements IService {
 
-    private EventMongoConcrete emc = null;
-    private UserMongoConcrete umc = null;
 
     public EventService() {
-        emc = EventMongoConcrete.getInstance();
-        umc = UserMongoConcrete.getInstance();
+        
     }
 
     // URI : /websources/events
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getEvents() {
-        return new Gson().toJson(emc.getAllFilter(new Document()));
+        String x;
+        return new Gson().toJson(emc.getAllFilter(new Document(),new Document()));
     }
 
     // URI : /websources/events
@@ -68,22 +66,20 @@ public class EventService {
     @Produces({MediaType.APPLICATION_JSON})
     public String addEvent(String content, @Context HttpHeaders headers) {
         String eId = "";
-        String uId = "";
+        String uID = "";
         try {
-            
             HandleEventObject temp = new Gson().fromJson(content, HandleEventObject.class);
             Event newEvent = new Event(temp.getName(), temp.getDescription(), temp.getMaxParticipators(), temp.getMinAge(), temp.getStartDate(), temp.getEndDate(), temp.getType(), temp.getCategory(), temp.getCreator());
             eId = emc.add(newEvent);
             newEvent.seteID(eId);
             emc.update(Filters.eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
-            uId = headers.getRequestHeader("uID").get(0);
-            
-            HashMap<String, SlimEvent> participatesIn = umc.getOneFilter(Filters.eq("uId",uId)).getParticipatesIn();
-            participatesIn.put(eId, new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators()));
-            umc.update(Filters.eq("uId", uId), new Document("$set", new Document("participatesIn",participatesIn)));
+            uID = headers.getRequestHeader("uID").get(0);   
+            SlimEvent se = new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators());
+            umc.update(Filters.eq("uID", uID), new Document("$push", new Document("participatesIn", Document.parse(new Gson().toJson(se)))));
+
             System.out.println("*******added new event from userID " + newEvent.getCreator() + "******");
         } catch (Exception e) {
-            return new Document("error", "Add - Event - Error : " + e.getMessage()).toJson(); // falsch verbessern : valid json !!
+            return new Document("error", "Add - Event - Error : " + e.getMessage()).toJson();
         }
         return new Document("eID", eId).toJson();
     }
@@ -93,31 +89,31 @@ public class EventService {
     @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getEmployee(@PathParam("eID") String eID) {
-        return new Gson().toJson(emc.getOneFilter(Filters.eq("eID", eID)));
+        return new Gson().toJson(emc.getOneFilter(Filters.eq("eID", eID),new Document()));
     }
-
-    @GET
-    @Path("/{eID}/like")
-    @Produces({MediaType.APPLICATION_JSON})
-    public String dis_like(@PathParam("eID") String eID, @Context HttpHeaders headers) {
-        try {
-            Event e = emc.getOneFilter(Filters.eq("eID", eID));
-            emc.update(Filters.eq("eID", eID), new Document("$set", new Document("totalLikes", e.getTotalLikes() + 1)));
-
-            String uID = headers.getRequestHeader("uID").get(0);
-            HashMap<String, SlimEvent> likes = umc.getOneFilter(Filters.eq("uID", uID)).getLikes();
-            if (likes.containsKey(eID)) {
-                likes.remove(uID);
-            } else {
-                likes.put(uID, new SlimEvent(eID, e.getName(), e.getTotalLikes(), e.getMaxParticipators(), e.getTotalParticipators()));
-            }
-            emc.update(Filters.eq("uID", uID), new Document("$set", new Document("likes", likes)));
-
-        } catch (Exception e) {
-            return new Document("error", e.getMessage()).toJson();
-        }
-        return new Gson().toJson("Success: Event =  " + eID + " liked / disliked");
-    }
+    
+//    @GET
+//    @Path("/{eID}/like")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public String dis_like(@PathParam("eID") String eID, @Context HttpHeaders headers) {
+//        try {
+//            Event e = emc.getOneFilter(Filters.eq("eID", eID));
+//            emc.update(Filters.eq("eID", eID), new Document("$set", new Document("totalLikes", e.getTotalLikes() + 1)));
+//
+//            String uID = headers.getRequestHeader("uID").get(0);
+//            HashMap<String, SlimEvent> likes = umc.getOneFilter(Filters.eq("uID", uID)).getLikes();
+//            if (likes.containsKey(eID)) {
+//                likes.remove(uID);
+//            } else {
+//                likes.put(uID, new SlimEvent(eID, e.getName(), e.getTotalLikes(), e.getMaxParticipators(), e.getTotalParticipators()));
+//            }
+//            emc.update(Filters.eq("uID", uID), new Document("$set", new Document("likes", likes)));
+//
+//        } catch (Exception e) {
+//            return new Document("error", e.getMessage()).toJson();
+//        }
+//        return new Gson().toJson("Success: Event =  " + eID + " liked / disliked");
+//    }
 
     // URI : /websources/events
 //    @POST
