@@ -1,3 +1,4 @@
+C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\services\UserService.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\EventType.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\dao\RatingMongoConcrete.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\Event.java
@@ -9,6 +10,7 @@ C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\dao\Use
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\dao\IMongoAccess.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\dao\EventMongoConcrete.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\EventCategory.java
+C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\services\IService.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\UserType.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\User.java
 C:\Users\Valon\Documents\NetBeansProjects\EventifyAPI\src\main\java\data\models\MinimalEvent.java

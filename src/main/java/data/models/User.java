@@ -5,12 +5,10 @@
  */
 package data.models;
 
-
 /**
  *
  * @author Chris
  */
-
 import com.google.gson.Gson;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ import java.util.HashMap;
  * @author Chris
  */
 public class User {
+
     private String uID;
     private String firstName;
     private String lastName;
@@ -33,10 +32,10 @@ public class User {
     private UserType type;
     private int numberOfCreated;
     private int numberOfParticipated;
-    private ArrayList<Integer> ratings;
     private int totalFollowers;
     private LocalDate created;
     private LocalDate lastEdited;
+    private ArrayList<Integer> ratings;
     private ArrayList<SlimEvent> follows;
     private ArrayList<SlimEvent> likes;
     private ArrayList<SlimEvent> participatesIn;
@@ -105,10 +104,6 @@ public class User {
         return numberOfParticipated;
     }
 
-    public Collection<Integer> getRatings() {
-        return ratings;
-    }
-
     public int getTotalFollowers() {
         return totalFollowers;
     }
@@ -120,7 +115,6 @@ public class User {
     public LocalDate getLastEdited() {
         return lastEdited;
     }
-
 
     public void setuID(String uID) {
         this.uID = uID;
@@ -182,8 +176,13 @@ public class User {
         this.lastEdited = lastEdited;
     }
 
-   
-    
+    public ArrayList<SlimEvent> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<SlimEvent> likes) {
+        this.likes = likes;
+    }
 
     public ArrayList<SlimEvent> getParticipatesIn() {
         return participatesIn;
@@ -193,11 +192,24 @@ public class User {
         this.participatesIn = participatesIn;
     }
 
-    
-    
+    public ArrayList<SlimEvent> getFollows() {
+        return follows;
+    }
+
+    public void setFollows(ArrayList<SlimEvent> follows) {
+        this.follows = follows;
+    }
+
+    public void setRatings(ArrayList<Integer> rates) {
+        this.ratings = ratings;
+    }
+
+    public ArrayList<Integer> getRatings() {
+        return ratings;
+    }
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
-    }   
+    }
 }
