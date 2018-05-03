@@ -1,5 +1,6 @@
 package data.dao;
 
+import com.mongodb.client.result.UpdateResult;
 import java.util.Collection;
 import java.util.List;
 import org.bson.conversions.Bson;
@@ -18,5 +19,5 @@ interface IMongoAccess<T> {
 	
 	void removeMany(Bson filterQuery);
         
-        void update(Bson filterQuery, Bson updateObject);
+        UpdateResult update(Bson filterQuery, Bson updateObject);
 }

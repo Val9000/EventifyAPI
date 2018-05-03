@@ -84,7 +84,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     @Override
     public void remove(Bson filterExpression) {
         collection.findOneAndDelete(filterExpression);
-
     }
 
     @Override
@@ -103,6 +102,7 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection));
         for(Document doc : col) listToReturn.add(gson.fromJson(doc.toJson(), entityClass));
+        if(listToReturn.isEmpty()) return null;
         return listToReturn;
     }
 
@@ -124,9 +124,9 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     }
 
     @Override
-    public void update(Bson filterQuery, Bson updateObject) {
+    public UpdateResult update(Bson filterQuery, Bson updateObject) {
         UpdateResult res = collection.updateOne(filterQuery, updateObject);
-        System.err.println(res);
+        return res;
     }
     
    

@@ -20,6 +20,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -41,9 +42,10 @@ import static services.IService.umc;
  */
 @Path("users")
 public class UserService implements IService {
-
+    List<String> userListNames;
+    
     public UserService() {
-
+        userListNames = Arrays.asList("follows", "participatesIn","ratings","likes");
     }
 
     // URI : /websources/users/
@@ -67,6 +69,7 @@ public class UserService implements IService {
     @Path("/{uID}/{listName}") // Bug for Ratings, doesn't return an warning just [], in the if we also need to check if object.size != 0. 
     @Produces({MediaType.APPLICATION_JSON})
     public String getList(@PathParam("uID") String uID, @PathParam("listName") String listName) throws IntrospectionException {
+        if(!userListNames.contains(listName)) return new Document("Warning: UserSerivce - getList", "Invalid List - Name! ").toJson(); 
         User filtered = umc.getOneFilter(Filters.eq("uID", uID), new Document(listName, 1));
         Object result = invokeGetter(filtered, listName);
         if(result instanceof Exception) return new Document("Error: UserSerivce - getList", "Exception:  " + ((Exception) result).getMessage()).toJson();
