@@ -6,6 +6,9 @@
 package services;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import data.dao.UserMongoConcrete;
 import data.models.User;
@@ -30,18 +33,25 @@ import data.models.EventType;
 import data.models.MinimalUser;
 import data.models.SlimEvent;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import java.util.logging.Logger;
+import static java.util.stream.Collectors.mapping;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -49,6 +59,10 @@ import javax.ws.rs.core.HttpHeaders;
  */
 @Path("events")
 public class EventService implements IService {
+
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public EventService() {
 
@@ -133,36 +147,65 @@ public class EventService implements IService {
         return new Document("eID", eId).toJson();
     }
 
+    // URI : /websources/events/{eID}/participate
     @PUT
-    @Path("/{eID}/{listName}")
+    @Path("/{eID}/participate")
     @Produces({MediaType.APPLICATION_JSON})
-    public String updateEvent(String content, @PathParam("eID") String eID, @PathParam("listName") String listName) {
-        
-        UpdateResult s = null;
+    public String de_participate(String content, @PathParam("eID") String eID) {
+        UpdateResult updateResult = null;
+
         try {
             MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
-            
-            switch (listName) {
-                case "like":
-                    break;
-                case "participate":
-                    System.out.println("im here");
-                    s = emc.update(eq("eID",eID), new Document("$addToSet", new Document("participators", Document.parse(new Gson().toJson(temp)))));
-                    if(s.wasAcknowledged())
-                        emc.remove(new Document("participators", Document.parse(new Gson().toJson(temp)))); // löscht das ganze object...gotta fix tho
-                    break;
-                case "rate":
-                    break;
-                default:
-                    return new Document("error", "listName : " + listName + " doesn't exist").toJson();
+            updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(gson.toJson(temp)))));
+            // if the count is 0 we know that it already exits. if it does.. then delete the object.
+            if (updateResult.getModifiedCount() == 0) {
+                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(gson.toJson(temp)))));
             }
-            //emc.update(Filters.eq("eID", temp.getEID()), new Document("$set", content));
         } catch (Exception e) {
-            return new Document("error", e.getMessage()).toJson();
+            return new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson();
         }
-        return new Document("success", s.wasAcknowledged()).toJson();
+        return new Document("success", updateResult.wasAcknowledged() + " count: " + updateResult.getModifiedCount()).toJson();
     }
 
+    @PUT
+    @Path("/{eID}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String updateEventFields(String content, @PathParam("eID") String eID, @Context HttpHeaders httpHeaders) {
+        UpdateResult updateResult = null;
+       
+        List<String> fields = new ArrayList<>();
+        try {
+            String  jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
+//            Set<String> headerKeys = httpHeaders.getRequestHeaders().keySet();
+//            for (String header : headerKeys) {
+//                System.out.println(header + ":" + httpHeaders.getRequestHeader(header).get(0));
+//            }
+            TypeToken<List<String>> token = new TypeToken<List<String>>() {};
+            List<String> animals = gson.fromJson(jsonToUpdate, token.getType());
+            ArrayList fromJson = new Gson().fromJson(jsonToUpdate,  ArrayList.class);
+
+            //MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
+            /*Document updateFields = new Document();
+            for (String field : fields) {
+                updateFields.append("$set", field);
+            }
+            updateResult = emc.update(eq("eID", eID), updateFields);
+            */
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson();
+        }
+        return new Document("success", "asda").toJson();
+    }
+
+     /*
+        JSONObject  x = new JSONObject(); 
+        x.put("description", "neue super description");
+        x.put("minAge", 30);
+        String s = x.toString();
+        logger.log(Level.WARNING, "s : " + s);
+         */
+    
 //    // URI : /websources/events/{eID}
 //    @GET
 //    @Path("/{eID}")

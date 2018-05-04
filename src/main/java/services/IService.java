@@ -5,6 +5,7 @@
  */
 package services;
 
+import com.google.gson.Gson;
 import data.dao.*;
 
 /**
@@ -14,4 +15,5 @@ import data.dao.*;
 public interface IService {
     public static final  EventMongoConcrete emc = EventMongoConcrete.getInstance();
     public static final  UserMongoConcrete umc = UserMongoConcrete.getInstance();
+    public static final  Gson gson = new Gson();
 }
