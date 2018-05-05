@@ -6,42 +6,26 @@
 package services;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.mongodb.client.model.Filters;
-import data.dao.UserMongoConcrete;
-import data.models.User;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import org.bson.BSON;
-import org.bson.BSONObject;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
-import com.mongodb.client.model.Projections;
 import com.mongodb.client.result.UpdateResult;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-import data.dao.EventMongoConcrete;
 import data.models.Event;
 import data.models.EventCategory;
 import data.models.EventType;
 import data.models.MinimalUser;
 import data.models.SlimEvent;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
+import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -49,9 +33,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import java.util.logging.Logger;
-import static java.util.stream.Collectors.mapping;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -171,113 +152,20 @@ public class EventService implements IService {
     @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
     public String updateEventFields(String content, @PathParam("eID") String eID, @Context HttpHeaders httpHeaders) {
-        UpdateResult updateResult = null;
-       
-        List<String> fields = new ArrayList<>();
         try {
             String  jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
-//            Set<String> headerKeys = httpHeaders.getRequestHeaders().keySet();
-//            for (String header : headerKeys) {
-//                System.out.println(header + ":" + httpHeaders.getRequestHeader(header).get(0));
-//            }
-            TypeToken<List<String>> token = new TypeToken<List<String>>() {};
-            List<String> animals = gson.fromJson(jsonToUpdate, token.getType());
-            ArrayList fromJson = new Gson().fromJson(jsonToUpdate,  ArrayList.class);
-
-            //MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
-            /*Document updateFields = new Document();
-            for (String field : fields) {
-                updateFields.append("$set", field);
-            }
-            updateResult = emc.update(eq("eID", eID), updateFields);
-            */
+            Type type = new TypeToken<Map<String, ?>>(){}.getType();
+            Map<String, ?> myMap = gson.fromJson(jsonToUpdate, type);
+            Document toUpdate = new Document();
+            myMap.forEach((key,val)-> toUpdate.append(key,val));
+            emc.update(eq("eID",eID), new Document("$set", toUpdate));      
         } catch (Exception e) {
             e.printStackTrace();
-            return new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson();
+            return new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson();
         }
-        return new Document("success", "asda").toJson();
+        return new Document("success", "ka").toJson();
     }
 
-     /*
-        JSONObject  x = new JSONObject(); 
-        x.put("description", "neue super description");
-        x.put("minAge", 30);
-        String s = x.toString();
-        logger.log(Level.WARNING, "s : " + s);
-         */
-    
-//    // URI : /websources/events/{eID}
-//    @GET
-//    @Path("/{eID}")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public String getEmployee(@PathParam("eID") String eID) {
-//        return new Gson().toJson(emc.getOneFilter(Filters.eq("eID", eID), new Document()));
-//    }
-//    @GET
-//    @Path("/{eID}/like")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public String dis_like(@PathParam("eID") String eID, @Context HttpHeaders headers) {
-//        try {
-//            Event e = emc.getOneFilter(Filters.eq("eID", eID));
-//            emc.update(Filters.eq("eID", eID), new Document("$set", new Document("totalLikes", e.getTotalLikes() + 1)));
-//
-//            String uID = headers.getRequestHeader("uID").get(0);
-//            HashMap<String, SlimEvent> likes = umc.getOneFilter(Filters.eq("uID", uID)).getLikes();
-//            if (likes.containsKey(eID)) {
-//                likes.remove(uID);
-//            } else {
-//                likes.put(uID, new SlimEvent(eID, e.getName(), e.getTotalLikes(), e.getMaxParticipators(), e.getTotalParticipators()));
-//            }
-//            emc.update(Filters.eq("uID", uID), new Document("$set", new Document("likes", likes)));
-//
-//        } catch (Exception e) {
-//            return new Document("error", e.getMessage()).toJson();
-//        }
-//        return new Gson().toJson("Success: Event =  " + eID + " liked / disliked");
-//    }
-    // URI : /websources/events
-//    @POST
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public String addUserToEvent(String content) {
-//        String eId = "";
-//        try {
-//            HandleEventObject temp = new Gson().fromJson(content, HandleEventObject.class);
-//            Event newEvent = new Event(temp.getName(), temp.getDescription(), temp.getMaxParticipators(), temp.getMinAge(), temp.getStartDate(), temp.getEndDate(), temp.getType(), temp.getCategory(), temp.getCreator());
-//            eId = emc.add(newEvent);
-//            newEvent.seteID(eId);
-//            emc.update(Filters.eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
-//            System.out.println("*******added new event from userID " + newEvent.getCreator() + "******");
-//        } catch (Exception e) {
-//            return new Document("error", "Add - Event - Error : " + e.getMessage()).toJson(); // falsch verbessern : valid json !!
-//        }
-//        return new Document("eID", eId).toJson();
-//    }
-
-    /*
-    //URI:
-    // /contextPath/servletPath/employees
-    @PUT
-    @Produces({MediaType.APPLICATION_JSON}) // später evtl. nur bestimmte fields mitschicken und nicht alles.. mom. irrelevant
-    public String updateEmployee(String content) {
-        try {
-            Event temp = new Gson().fromJson(content, Event.class);
-            EventMongoConcrete emc = EventMongoConcrete.getInstance();
-            emc.update(Filters.eq("eID", temp.getEID()), new Document("$set", content));
-        } catch (Exception e) {
-            return new Document("error", e.getMessage()).toJson();
-        }
-        return new Document("success", "Event has been modified").toJson();
-    }
-     */
-    // deaktivieren... 
-    /*
-    @DELETE
-    @Path("/{empNo}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void deleteEmployee(@PathParam("empNo") String empNo) {
-        EmployeeDAO.deleteEmployee(empNo);
-    }
-     */
     public class HandleEventObject {
 
         private String name;

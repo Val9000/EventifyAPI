@@ -6,6 +6,7 @@
 package services;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.excludeId;
@@ -19,9 +20,11 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -92,15 +95,19 @@ public class UserService implements IService {
     @PUT
     @Path("/{uID}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String updateUser(String content) {
+    public String updateUser(String content, @PathParam("uID") String eID, @Context HttpHeaders httpHeaders) {
         try {
-            //Event temp = new Gson().fromJson(content, Event.class);
-            
-            //emc.update(Filters.eq("eID", temp.getEID()), new Document("$set", content));
+            String  jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
+            Type type = new TypeToken<Map<String, ?>>(){}.getType();
+            Map<String, ?> myMap = gson.fromJson(jsonToUpdate, type);
+            Document toUpdate = new Document();
+            myMap.forEach((key,val)-> toUpdate.append(key,val));
+            umc.update(eq("uID",eID), new Document("$set", toUpdate));      
         } catch (Exception e) {
-            return new Document("error", e.getMessage()).toJson();
+            e.printStackTrace();
+            return new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson();
         }
-        return new Document("success", "Event has been modified").toJson();
+        return new Document("success", "ka").toJson();
     }
     
     
@@ -109,7 +116,6 @@ public class UserService implements IService {
     @Produces({MediaType.APPLICATION_JSON}) 
     public String followUser(String content, @PathParam("uID") String uID) {
         try {
-            
             // first 
             MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
             umc.update(Filters.eq("uID", uID), new Document("$push", new Document("follows", Document.parse(new Gson().toJson(temp)))));

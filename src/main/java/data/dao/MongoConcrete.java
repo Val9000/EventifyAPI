@@ -2,55 +2,27 @@ package data.dao;
 
 import Util.LocalDateAdapter;
 
-import java.io.Reader;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
-import static com.mongodb.client.model.Projections.excludeId;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
-import static com.mongodb.client.model.Projections.excludeId;
 import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import data.models.User;
-import data.models.UserState;
-import data.models.UserType;
-import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import static javax.ws.rs.client.Entity.json;
 
 public abstract class MongoConcrete<T> implements IMongoAccess<T> {
 
