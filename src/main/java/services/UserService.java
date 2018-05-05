@@ -9,24 +9,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Projections.excludeId;
-import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
-import data.models.Event;
+import com.sun.xml.internal.bind.v2.TODO;
 import data.models.MinimalUser;
-import data.models.SlimEvent;
 import data.models.User;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,8 +28,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import static services.IService.emc;
 import static services.IService.umc;
 
 /**
@@ -68,6 +59,8 @@ public class UserService implements IService {
     }
 
     // URI : /websources/users/{uID}/{listName} get specifiec list of user
+    //TODO  "NEED TO RE- WRTIE THIS... I've solved this way to stupid... No need for reflections". 
+ 
     @GET
     @Path("/{uID}/{listName}") // Bug for Ratings, doesn't return an warning just [], in the if we also need to check if object.size != 0. 
     @Produces({MediaType.APPLICATION_JSON})
