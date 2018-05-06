@@ -16,7 +16,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import org.bson.Document;
 import com.mongodb.client.model.Filters;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.time.LocalDate;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -66,7 +65,6 @@ public class Login {
             }
 
         } catch (Exception ex) {
-            printStackTrace();
             System.out.println(ex.getMessage());
             return (new Document("error", ex.getMessage())).toJson();
         }
