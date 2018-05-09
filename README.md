@@ -4,6 +4,13 @@
 
 This app will manage user created eventActivities. They can be added, edited and viewed on the integrated map or other parts of our app. Users can participate in, rate and like eventActivities. The user that created an event will be rewarded with the eventActivities ratings. Administrators can deactivate all user accounts and delete all eventActivities. The user can only deactivate his own account and delete his own eventActivities. Events will not really be deleted. Their state will change from "confirmed" to "called off". Users can follow other users. A payment service for eventActivities may be implemented later.
 
+# Developers
+
+* ## Blaschke (vanessa000)
+* ## Berisa (Val9000)
+* ## Judth ()
+* ## Winkler(Chris6077)
+
 # SYP Stuff
 
 * *[General Description](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EbAvtVUywLBAstYna4mbRVABu-LJ61s3_ly-v8ELw9-Jmg?e=cTvQP9)*
