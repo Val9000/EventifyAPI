@@ -31,9 +31,14 @@ This app will manage user created eventActivities. They can be added, edited and
 Our services are Java based and will be deployed on herokuapp.
 
 * *[Repository](https://github.com/Val9000/EventifyAPI)*
+* *[Deployed](https://eventifyapi.herokuapp.com/swagger)*
 
 ### Tags
-* Glassfish
+* Jetty
+* Jersey
+* Swagger
+* Embedded Server
+* Heroku
 * BSON
 * GSON
 * JSON
