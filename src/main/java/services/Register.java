@@ -7,6 +7,8 @@ package services;
 
 import com.google.gson.Gson;
 import com.mongodb.client.model.Filters;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import data.dao.UserMongoConcrete;
 import data.models.User;
 import javax.ws.rs.core.Context;
@@ -28,6 +30,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author Chris
  */
 @Path("register")
+@Api( value = "/register", description = "Sign up for Eventify" )
 public class Register {
 
     @Context
@@ -40,6 +43,7 @@ public class Register {
     }
 
     @POST
+    @ApiOperation( value = "Register new User", notes = "User object" )
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public String newUser(String content) throws Exception {
         String uId = "";

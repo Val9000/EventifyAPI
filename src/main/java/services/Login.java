@@ -9,6 +9,8 @@ import Util.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mongodb.client.model.Filters;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import data.dao.UserMongoConcrete;
 import data.models.User;
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author Chris
  */
 @Path("login")
+@Api( value = "/login", description = "Log in to Eventify" )
 public class Login {
 
     @Context
@@ -39,6 +42,7 @@ public class Login {
     }
 
     @POST
+    @ApiOperation( value = "Login to Eventify", notes = "Username and Password" )
     @Consumes(MediaType.APPLICATION_JSON)
     public String login(String content) throws Exception {
         try {

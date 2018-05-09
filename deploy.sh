@@ -1,0 +1,1 @@
+heroku deploy:jar ./target/EventifyAPI-1.0.jar --app eventifyapi

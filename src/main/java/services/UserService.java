@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import data.models.MinimalUser;
 import data.models.User;
 import java.beans.IntrospectionException;
@@ -37,6 +39,7 @@ import static services.IService.umc;
  * @author Chris
  */
 @Path("users")
+@Api( value = "/users", description = "Manage User" )
 public class UserService {
 
     @Context
@@ -53,8 +56,10 @@ public class UserService {
     }
 
     // URI : /websources/users/
+    //REMOVE
     @GET
     @Path("/")
+    @ApiOperation( value = "Get all users?", notes = "Returns users", response = User.class )
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllUsers() {
         return new Gson().toJson(umc.getAllFilter(new Document(), new Document()));
@@ -63,6 +68,7 @@ public class UserService {
     // URI : /websources/users/{uID}
     @GET
     @Path("/{uID}")
+    @ApiOperation( value = "Get specific user", notes = "Returns a specific User", response = User.class )
     @Produces({MediaType.APPLICATION_JSON})
     public String getUser(@PathParam("uID") String uID) {
         return new Gson().toJson(umc.getOneFilter(Filters.eq("uID", uID), new Document()));
@@ -73,6 +79,7 @@ public class UserService {
  
     @GET
     @Path("/{uID}/{listName}") // Bug for Ratings, doesn't return an warning just [], in the if we also need to check if object.size != 0. 
+    @ApiOperation( value = "Get [events, likes, participations, follows] of a specific user", notes = "Returns [events, likes, participations, follows]" )
     @Produces({MediaType.APPLICATION_JSON})
     public String getList(@PathParam("uID") String uID, @PathParam("listName") String listName) throws IntrospectionException {
         if(!userListNames.contains(listName)) return new Document("Warning: UserSerivce - getList", "Invalid List - Name! ").toJson(); 
@@ -97,6 +104,7 @@ public class UserService {
     
     @PUT
     @Path("/{uID}")
+    @ApiOperation( value = "Change a user", notes = "fieldToChange" )
     @Produces({MediaType.APPLICATION_JSON})
     public String updateUser(String content, @PathParam("uID") String eID, @Context HttpHeaders httpHeaders) {
         try {
@@ -114,6 +122,7 @@ public class UserService {
     
     @PUT
     @Path("/{uID}/follows")
+    @ApiOperation( value = "Follow/Unfollow user", notes = "uID" )
     @Produces({MediaType.APPLICATION_JSON}) 
     public String followUser(String content, @PathParam("uID") String uID) {
         try {
