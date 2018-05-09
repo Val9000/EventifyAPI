@@ -6,10 +6,10 @@ This app will manage user created eventActivities. They can be added, edited and
 
 # Developers
 
-* ## Blaschke (vanessa000)
-* ## Berisa (Val9000)
-* ## Judth ()
-* ## Winkler(Chris6077)
+* ### Berisa (Val9000)
+* ### Blaschke (vanessa000)
+* ### Judth (xjudthxx)
+* ### Winkler(Chris6077)
 
 # SYP Stuff
 
