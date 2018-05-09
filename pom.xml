@@ -124,7 +124,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.example.Starter</mainClass>
+                                <mainClass>Util.Starter</mainClass>
                             </manifest>
                         </archive>    	        		
                     </configuration>
@@ -154,7 +154,7 @@
                                 <configuration>
                                     <transformers>
                                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                            <mainClass>com.example.Starter</mainClass>
+                                            <mainClass>Util.Starter</mainClass>
                                         </transformer>
                                         <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                             <resource>META-INF/cxf/bus-extensions.txt</resource>

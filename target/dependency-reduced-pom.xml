@@ -21,7 +21,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.example.Starter</mainClass>
+              <mainClass>Util.Starter</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -38,7 +38,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.example.Starter</mainClass>
+                  <mainClass>Util.Starter</mainClass>
                 </transformer>
                 <transformer>
                   <resource>META-INF/cxf/bus-extensions.txt</resource>
