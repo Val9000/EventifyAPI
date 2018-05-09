@@ -43,7 +43,7 @@ Our services are Java based and will be deployed on herokuapp.
 ### Tags
 * Jetty
 * Jersey
-* Swagger (Will be removed later // Authentication header)
+* Swagger
 * Embedded Server
 * Heroku
 * BSON
