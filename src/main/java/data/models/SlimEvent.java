@@ -18,13 +18,15 @@ public class SlimEvent implements Serializable{
     private int totalLikes;
     private int maxParticipators;
     private int totalParticipators;
+    private EventCategory category;
 
-    public SlimEvent(String eID, String name, int totalLikes, int maxParticipators, int totalParticipators) {
+    public SlimEvent(String eID, String name, int totalLikes, int maxParticipators, int totalParticipators, EventCategory category) {
         this.eID = eID;
         this.name = name;
         this.totalLikes = totalLikes;
         this.maxParticipators = maxParticipators;
         this.totalParticipators = totalParticipators;
+        this.category = category;
     }
 
     public String geteID() {
@@ -65,6 +67,14 @@ public class SlimEvent implements Serializable{
 
     public void setTotalParticipators(int totalParticipators) {
         this.totalParticipators = totalParticipators;
+    }
+
+    public EventCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(EventCategory category) {
+        this.category = category;
     }
     
     @Override

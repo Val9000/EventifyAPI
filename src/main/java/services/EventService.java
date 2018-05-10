@@ -59,8 +59,8 @@ public class EventService implements IService{
 
     // URI : /websources/events
     @GET
-    @Path("/")
     @ApiOperation( value = "Get all events", notes = "Returns events", response = SlimEvent.class )
+    @Path("/")
     @Produces({MediaType.APPLICATION_JSON})
     public String getEvents() {
         return new Gson().toJson(emc.getAllFilter(new Document(), new Document()));
@@ -68,8 +68,8 @@ public class EventService implements IService{
 
     // URI : /websources/events/{eID}
     @GET
-    @Path("/{eID}")
     @ApiOperation( value = "Get specific event by eID", notes = "Returns one specific event", response = Event.class )
+    @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
     public String getFullEvent(@PathParam("eID") String eID) {
         return new Gson().toJson(emc.getOneFilter(eq("eID", eID), new Document()));
@@ -77,8 +77,8 @@ public class EventService implements IService{
 
     // URI : /websources/events/{eID}/participators 
     @GET
-    @Path("/{eID}/participators")
     @ApiOperation( value = "Get participators of specific event", notes = "Returns all participators of one specific event", response = MinimalUser.class )
+    @Path("/{eID}/participators")
     @Produces({MediaType.APPLICATION_JSON})
     public String getEventParticipators(@PathParam("eID") String eID) {
         try {
@@ -94,9 +94,9 @@ public class EventService implements IService{
     }
 
     // URI : /websources/events/minimal
-    @GET
-    @Path("/minimal")
+    @GET    
     @ApiOperation( value = "Get all events as minimal version", notes = "Returns all minimalEvents", response = MinimalEvent.class )
+    @Path("/minimal")
     @Produces({MediaType.APPLICATION_JSON})
     public String getMinimalEvents() {
         try {
@@ -118,8 +118,8 @@ public class EventService implements IService{
 
     // URI : /websources/events
     @POST
-    @Produces({MediaType.APPLICATION_JSON})
     @ApiOperation( value = "Create an event", notes = "Event" )
+    @Produces({MediaType.APPLICATION_JSON})
     public String addEvent(String content, @Context HttpHeaders headers) {
         String eId = "";
         String uID = "";
@@ -141,8 +141,8 @@ public class EventService implements IService{
 
     // URI : /websources/events/{eID}/participate
     @PUT
+    @ApiOperation( value = "Participate/Unparticipate in an event", notes = "eID" )    
     @Path("/{eID}/participate")
-    @ApiOperation( value = "Participate/Unparticipate in an event", notes = "eID" )
     @Produces({MediaType.APPLICATION_JSON})
     public String de_participate(String content, @PathParam("eID") String eID) {
         UpdateResult updateResult = null;
@@ -161,8 +161,8 @@ public class EventService implements IService{
     }
 
     @PUT
-    @Path("/{eID}")
     @ApiOperation( value = "Change details of one specific event", notes = "fieldToChange" )
+    @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
     public String updateEventFields(String content, @PathParam("eID") String eID, @Context HttpHeaders httpHeaders) {
         try {
