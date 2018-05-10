@@ -130,7 +130,7 @@ public class EventService implements IService{
             newEvent.seteID(eId);
             emc.update(eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
             uID = headers.getRequestHeader("uID").get(0);
-            SlimEvent se = new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators());
+            SlimEvent se = new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators(), newEvent.getCategory());
             umc.update(Filters.eq("uID", uID), new Document("$push", new Document("participatesIn", Document.parse(new Gson().toJson(se)))));
 
         } catch (Exception e) {
