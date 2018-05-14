@@ -16,6 +16,7 @@ import data.models.EventType;
 import data.models.Location;
 import data.models.MinimalEvent;
 import data.models.MinimalUser;
+import data.models.ParticipationType;
 import data.models.SlimEvent;
 import java.lang.reflect.Type;
 import java.time.Instant;
@@ -32,6 +33,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -45,7 +47,6 @@ public class EventService implements IService {
 
     // URI : /websources/events
     @GET
-    @Path("/")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllSlimEvents(@Context HttpHeaders headers) {
         if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
@@ -173,7 +174,13 @@ public class EventService implements IService {
         if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         UpdateResult updateResult = null;
         try {
-            MinimalUser temp = custom_gson.fromJson(content, MinimalUser.class);
+            String type = content.split("type\": \"")[1].split("\"")[0];
+            MinimalUser temp;
+            if(type.equals(ParticipationType.Anonymous.toString())){
+                temp = new MinimalUser(authID, "Anonymous", "User", "anonymous");
+            } else {
+                temp = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
+            }
             updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
             // if the count is 0 we know that it already exits. if it does.. then delete the object.
             if (updateResult.getModifiedCount() == 0) {
@@ -194,12 +201,9 @@ public class EventService implements IService {
         String authID = httpHeaders.getRequestHeader("uID").get(0);
         if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            if(httpHeaders.getRequestHeader("fieldsToUpdate") == null) 
-                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - updateEventFields", "Exception : Key of the fields to update should be : fieldsToUpdate").toJson()).build();
-            String jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
             Type type = new TypeToken<Map<String, ?>>() {
             }.getType();
-            Map<String, ?> myMap = custom_gson.fromJson(jsonToUpdate, type);
+            Map<String, ?> myMap = custom_gson.fromJson(content, type);
             Document toUpdate = new Document();
             myMap.forEach((key, val) -> toUpdate.append(key, val));
             emc.update(eq("eID", eID), new Document("$set", toUpdate));

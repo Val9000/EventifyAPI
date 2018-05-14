@@ -1,0 +1,660 @@
+{
+	"id": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+	"name": "Eventify",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"name": "Events",
+			"description": "",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"order": [
+				"1df0d921-2421-bb13-f6a7-0692cef1a750",
+				"bc69d50e-1e49-94b0-d4c0-5c97ac0fdde8",
+				"cd4ba924-32ae-e88c-04d6-60d5a536f3c5",
+				"03b54e78-0b6f-b169-c7ac-03a59d019787",
+				"7e374ff5-273b-48b5-60b2-6bab5bcee292",
+				"685adcb8-ed81-1ab8-04f1-6e053f5bf207",
+				"09927677-9da9-2195-576c-bbdc32445055"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "8f7f2b28-d002-d663-0023-3cecabf49710"
+		},
+		{
+			"name": "Login",
+			"description": "",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"order": [
+				"6f464b21-a762-1d35-bfc2-6d0928008c47"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "7f3963c7-1c0c-322d-9891-6ea38acbbb00"
+		},
+		{
+			"name": "Register",
+			"description": "",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"order": [
+				"f782b33e-4f50-7943-75ad-834619ddf6ca"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "751f95f9-895f-e155-057d-fe7eb34e4e6d"
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"order": [
+				"6018500b-351c-31ee-16b0-85d84f108392",
+				"8a39cea4-0e45-3c78-a7ad-becd9a884a7e",
+				"9cb4e307-5f13-6314-1c3e-57c7b9064829",
+				"dddd99a6-b890-b40c-3316-24547909463b",
+				"6158265c-e6f0-dc0a-c53b-17b0f03d18e2",
+				"39619575-3223-23b3-a584-bf226434adc5"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20"
+		}
+	],
+	"folders_order": [
+		"751f95f9-895f-e155-057d-fe7eb34e4e6d",
+		"7f3963c7-1c0c-322d-9891-6ea38acbbb00",
+		"8f7f2b28-d002-d663-0023-3cecabf49710",
+		"67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20"
+	],
+	"timestamp": 1526290862180,
+	"owner": "3278867",
+	"public": false,
+	"requests": [
+		{
+			"id": "03b54e78-0b6f-b169-c7ac-03a59d019787",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/5af8644b6570441b5404c3e3/participators",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526296852140,
+			"name": "/api/events/{eID}/participators",
+			"description": "Get all participators of an event",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "09927677-9da9-2195-576c-bbdc32445055",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/5af97265a2d6f5424884dff1/participate",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526299251832,
+			"name": "/api/events/{eID}/participate",
+			"description": "Participate in event",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": " {\n \t\"type\": \"Public\"\n }"
+		},
+		{
+			"id": "1df0d921-2421-bb13-f6a7-0692cef1a750",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"data": null,
+			"dataMode": "params",
+			"name": "/api/events",
+			"description": "Get all Events",
+			"descriptionFormat": "html",
+			"time": 1526296685029,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710"
+		},
+		{
+			"id": "39619575-3223-23b3-a584-bf226434adc5",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users/5af97beaa2d6f54cd4ec75fd/follow",
+			"folder": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526300577692,
+			"name": "/api/users/{uID}/follow",
+			"description": "Follow user",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "6018500b-351c-31ee-16b0-85d84f108392",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526299663358,
+			"name": "/api/users",
+			"description": "Get current User",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "6158265c-e6f0-dc0a-c53b-17b0f03d18e2",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users/5af97beaa2d6f54cd4ec75fd",
+			"folder": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526300284136,
+			"name": "/api/users/{uID}",
+			"description": "Change field of user",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+		},
+		{
+			"id": "685adcb8-ed81-1ab8-04f1-6e053f5bf207",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/5af97265a2d6f5424884dff1/",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526297507165,
+			"name": "/api/events/{eID}",
+			"description": "Change Field",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"suicide2\"\n}"
+		},
+		{
+			"id": "6f464b21-a762-1d35-bfc2-6d0928008c47",
+			"headers": "Content-Type: application/json\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/Develop/api/login",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526291300683,
+			"name": "/api/login",
+			"description": "Login as User",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": "{\n\t\"email\": \"val@val.com\",\n\t\"password\": \"val\"\n}"
+		},
+		{
+			"id": "7e374ff5-273b-48b5-60b2-6bab5bcee292",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526297193589,
+			"name": "/api/events",
+			"description": "Create an event",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"suicide\",\n\t\"description\": \"die\",\n\t\"maxParticipators\": 20,\n\t\"minAge\": 18,\n\t\"startDate\": \"2018-05-05T12:00:00.000Z\",\n\t\"endDate\": \"2018-05-05T13:00:00.000Z\",\n\t\"location\": {\n\t\t\"lat\": 43.235235,\n\t\t\"lon\": 124.342532\n\t},\n\t\"type\": \"Public\",\n\t\"category\": \"Activity\",\n\t\"user\": {\n\t\t\"uID\": \"5af9599ca2d6f53ca8b702a7\",\n\t\t\"firstName\": \"valibu\",\n\t\t\"lastName\": \"berisa\",\n\t\t\"profilePicture\": \"lol.png\"\n\t}\n}"
+		},
+		{
+			"id": "8a39cea4-0e45-3c78-a7ad-becd9a884a7e",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users/list/participatesIn",
+			"folder": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526301534702,
+			"name": "/api/users/list/{listName}",
+			"description": "Get list of current User",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "9cb4e307-5f13-6314-1c3e-57c7b9064829",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users/5af97beaa2d6f54cd4ec75fd",
+			"folder": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526299655652,
+			"name": "/api/users/{uID}",
+			"description": "Get specific Users profile",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "bc69d50e-1e49-94b0-d4c0-5c97ac0fdde8",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/5af8644b6570441b5404c3e3/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526296775483,
+			"name": "/api/events/{eID}",
+			"description": "Get one specific event",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "cd4ba924-32ae-e88c-04d6-60d5a536f3c5",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/events/minimal",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526296790703,
+			"name": "/api/events/minimal",
+			"description": "Get all minimal events",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
+		},
+		{
+			"id": "dddd99a6-b890-b40c-3316-24547909463b",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://local:8080/Develop/api/users/",
+			"folder": "67dccdd1-8f3f-43c8-a5f9-cfb92fc95f20",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526300285975,
+			"name": "/api/users/",
+			"description": "Change field of logged in user",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+		},
+		{
+			"id": "f782b33e-4f50-7943-75ad-834619ddf6ca",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/Develop/api/register",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526299631197,
+			"name": "/api/register",
+			"description": "Register a user",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": [],
+			"rawModeData": " {\n \t\"firstName\": \"christian\",\n \t\"lastName\": \"winkler\",\n \t\"birthdate\": \"1999-09-28T01:01:01.999Z\",\n \t\"email\": \"chris@bashit.me\",\n \t\"password\": \"password\"\n }"
+		}
+	]
+}

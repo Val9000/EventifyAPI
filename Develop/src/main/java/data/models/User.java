@@ -31,7 +31,7 @@ public class User {
     private Instant created;
     private Instant lastEdited;
     private ArrayList<Integer> ratings;
-    private ArrayList<SlimEvent> follows;
+    private ArrayList<SlimUser> follows;
     private ArrayList<SlimEvent> likes;
     private ArrayList<SlimEvent> participatesIn;
 
@@ -191,11 +191,11 @@ public class User {
         this.participatesIn = participatesIn;
     }
 
-    public ArrayList<SlimEvent> getFollows() {
+    public ArrayList<SlimUser> getFollows() {
         return follows;
     }
 
-    public void setFollows(ArrayList<SlimEvent> follows) {
+    public void setFollows(ArrayList<SlimUser> follows) {
         this.follows = follows;
     }
 
