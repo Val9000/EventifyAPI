@@ -42,7 +42,7 @@ Our services are Java based and will be deployed on herokuapp.
 * *[Repository](https://github.com/Val9000/EventifyAPI)*
 * *[Deployed](https://eventifyapi.herokuapp.com/swagger)*
 * *[Postman Requests for local Develop server](https://raw.githubusercontent.com/Val9000/EventifyAPI/master/Eventify%20local.postman_collection.json)*
-* *Postman Requests for local Deploy server - replace "Develop" with "rest" in url
+* *Postman Requests for local Deploy server - replace "Develop" with "rest" in url*
 * *[Postman Requests for deployed Deploy server](https://raw.githubusercontent.com/Val9000/EventifyAPI/master/Eventify%20deployed.postman_collection.json)*
 
 ### Tags
