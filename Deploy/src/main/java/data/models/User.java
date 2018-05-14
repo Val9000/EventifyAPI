@@ -7,7 +7,6 @@ package data.models;
 
 import com.google.gson.Gson;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,7 +19,7 @@ public class User {
     private String uID;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate ;
+    private Instant birthDate ;
     private String email;
     private String password;
     private String profilePicture;
@@ -32,11 +31,11 @@ public class User {
     private Instant created;
     private Instant lastEdited;
     private ArrayList<Integer> ratings;
-    private ArrayList<SlimEvent> follows;
+    private ArrayList<SlimUser> follows;
     private ArrayList<SlimEvent> likes;
     private ArrayList<SlimEvent> participatesIn;
 
-    public User(String firstName, String lastName, LocalDate birthDate, String email, String password, String profilePicture) {
+    public User(String firstName, String lastName, Instant birthDate, String email, String password, String profilePicture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -122,11 +121,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthDate() {
+    public Instant getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Instant birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -192,11 +191,11 @@ public class User {
         this.participatesIn = participatesIn;
     }
 
-    public ArrayList<SlimEvent> getFollows() {
+    public ArrayList<SlimUser> getFollows() {
         return follows;
     }
 
-    public void setFollows(ArrayList<SlimEvent> follows) {
+    public void setFollows(ArrayList<SlimUser> follows) {
         this.follows = follows;
     }
 

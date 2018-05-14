@@ -1,7 +1,6 @@
 package data.dao;
 
 import Util.InstantTypeConverter;
-import Util.LocalDateAdapter;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -24,13 +23,15 @@ import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import static com.mongodb.client.model.Projections.fields;
 import java.time.Instant;
-import java.time.LocalDate;
 
 public abstract class MongoConcrete<T> implements IMongoAccess<T> {
 
     private static final MongoClient myClient = new MongoClient(new MongoClientURI("mongodb://val:val123@ds249079.mlab.com:49079/eventifydb"));
     private static final MongoDatabase database = myClient.getDatabase("eventifydb");
     private final MongoCollection<Document> collection;
+    private static final Gson gson = new GsonBuilder()
+        .registerTypeAdapter(Instant.class, new InstantTypeConverter())
+        .create();
 
     private final Class<T> entityClass;
 
@@ -63,10 +64,20 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     @Override
     public T getOneFilter(Bson filterExpression, Bson _projection) {
         T entityToReturn;
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        Gson custom_gson  = new GsonBuilder().registerTypeAdapter(Instant.class, new InstantTypeConverter()).create();
         Document first = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection)).first();
         if(first == null) return null; // means couldn't find anything
-        entityToReturn = gson.fromJson(first.toJson(), entityClass);
+        entityToReturn = custom_gson.fromJson(first.toJson(), entityClass);
+        return entityToReturn;
+    }
+    
+    @Override
+    public <T> T getOneFilter(Bson filterExpression, Bson _projection, Class<T> clazz) {
+        T entityToReturn;
+        Gson custom_gson  = new GsonBuilder().registerTypeAdapter(Instant.class, new InstantTypeConverter()).create();
+        Document first = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection)).first();
+        if(first == null) return null; // means couldn't find anything
+        entityToReturn = custom_gson.fromJson(first.toJson(), clazz);
         return entityToReturn;
     }
     
@@ -74,7 +85,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     @Override
     public <T> List<T> getAllFilter(Bson filterExpression, Bson _projection, Class<T> clazz) {
         List<T> listToReturn = new ArrayList<>(); 
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).registerTypeAdapter(Instant.class, new InstantTypeConverter()).create();
         FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection));
         for(Document doc : col) listToReturn.add(gson.fromJson(doc.toJson(), clazz));
         if(listToReturn.isEmpty()) return null;
@@ -84,10 +94,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     @Override
     public List<T> getAllFilter(Bson filterExpression, Bson _projection) {
         List<T> listToReturn = new ArrayList<>(); 
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .registerTypeAdapter(Instant.class, new InstantTypeConverter())
-                .create();
         FindIterable<Document> col = collection.find(filterExpression).projection(fields(Projections.excludeId(), _projection));
         for(Document doc : col) listToReturn.add(gson.fromJson(doc.toJson(), entityClass));
         if(listToReturn.isEmpty()) return null;
@@ -97,7 +103,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
     // maps document results into a list of objects
     @Override
     public List<T> getLimitedFilteredResult(Bson filter, int limit) {
-        Gson gson = new GsonBuilder().create();
         List<T> innerList = new ArrayList<>();
         collection.find(filter).limit(limit).forEach((Block<Document>) document -> {
             innerList.add(gson.fromJson(document.toJson(), entityClass));

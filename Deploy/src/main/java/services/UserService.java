@@ -5,14 +5,14 @@
  */
 package services;
 
-import com.google.gson.Gson;
+import Util.Auth;
 import com.google.gson.reflect.TypeToken;
-import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import data.models.MinimalUser;
+import data.models.SlimUser;
 import data.models.User;
+import data.models.UserType;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -20,17 +20,18 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import org.bson.Document;
-import static services.IService.gson;
+import static services.IService.custom_gson;
 import static services.IService.umc;
 
 /**
@@ -40,7 +41,7 @@ import static services.IService.umc;
  */
 @Path("users")
 @Api( value = "/users", description = "Manage User" )
-public class UserService {
+public class UserService implements IService {
 
     @Context
     private UriInfo context;
@@ -58,11 +59,17 @@ public class UserService {
     // URI : /websources/users/
     //REMOVE
     @GET
-    @Path("/")
     @ApiOperation( value = "Get all users?", notes = "Returns users", response = User.class )
+    @Path("/")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllUsers() {
-        return new Gson().toJson(umc.getAllFilter(new Document(), new Document()));
+    public Response getAllUsers(@Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        if(!Auth.Authenticate(API_KEY)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String uID = headers.getRequestHeader("uID").get(0);
+        User u = umc.getOneFilter(new Document("uID", uID), new Document());
+        if(u != null) return Response.status(Response.Status.OK).entity(custom_gson.toJson(u)).build();
+        else return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", "User not found").toJson()).build();
     }
 
     // URI : /websources/users/{uID}
@@ -70,24 +77,35 @@ public class UserService {
     @Path("/{uID}")
     @ApiOperation( value = "Get specific user", notes = "Returns a specific User", response = User.class )
     @Produces({MediaType.APPLICATION_JSON})
-    public String getUser(@PathParam("uID") String uID) {
-        return new Gson().toJson(umc.getOneFilter(Filters.eq("uID", uID), new Document()));
+    public Response getUser(@PathParam("uID") String uID, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        SlimUser u = umc.getOneFilter(eq("uID", uID), new Document(), SlimUser.class);
+        if(u == null) Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", "User not found").toJson()).build();
+        return Response.status(Response.Status.OK).entity(custom_gson.toJson(u)).build();
     }
 
     // URI : /websources/users/{uID}/{listName} get specifiec list of user
     //TODO  "NEED TO RE- WRTIE THIS... I've solved this way to stupid... No need for reflections". 
  
     @GET
-    @Path("/{uID}/{listName}") // Bug for Ratings, doesn't return an warning just [], in the if we also need to check if object.size != 0. 
     @ApiOperation( value = "Get [events, likes, participations, follows] of a specific user", notes = "Returns [events, likes, participations, follows]" )
+    @Path("/list/{listName}") // Bug for Ratings, doesn't return an warning just [], in the if we also need to check if object.size != 0. 
     @Produces({MediaType.APPLICATION_JSON})
-    public String getList(@PathParam("uID") String uID, @PathParam("listName") String listName) throws IntrospectionException {
-        if(!userListNames.contains(listName)) return new Document("Warning: UserSerivce - getList", "Invalid List - Name! ").toJson(); 
-        User filtered = umc.getOneFilter(Filters.eq("uID", uID), new Document(listName, 1));
+    public Response getList(@PathParam("listName") String listName, @Context HttpHeaders headers) throws IntrospectionException {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        if(!userListNames.contains(listName)) return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: UserSerivce - getList", "Invalid List - Name! ").toJson()).build(); 
+        /////////////       BUG: WRONG LIST!        /////////////////////////////////////////////////////////////////////////////77
+        User filtered = umc.getOneFilter(eq("uID", authID), new Document(listName, 1));
         Object result = invokeGetter(filtered, listName);
-        if(result instanceof Exception) return new Document("Error: UserSerivce - getList", "Exception:  " + ((Exception) result).getMessage()).toJson();
-        if(result == null) return new Document("Warning: UserSerivce - getList", "Empty list ! ").toJson();
-        return new Gson().toJson(result);
+        if(result instanceof Exception) return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: UserSerivce - getList", "Exception:  " + ((Exception) result).getMessage()).toJson()).build();
+        if(result == null) return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: UserSerivce - getList", "Empty list ! ").toJson()).build();
+        return Response.status(Response.Status.OK).entity(custom_gson.toJson(result)).build();
     }
 
     private Object invokeGetter(Object obj, String variableName) {
@@ -106,32 +124,61 @@ public class UserService {
     @Path("/{uID}")
     @ApiOperation( value = "Change a user", notes = "fieldToChange" )
     @Produces({MediaType.APPLICATION_JSON})
-    public String updateUser(String content, @PathParam("uID") String eID, @Context HttpHeaders httpHeaders) {
+    public Response updateUser(String content, @PathParam("uID") String eID, @Context HttpHeaders httpHeaders, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            String  jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
-            Type type = new TypeToken<Map<String, ?>>(){}.getType();
-            Map<String, ?> myMap = gson.fromJson(jsonToUpdate, type);
-            Document toUpdate = new Document();
-            myMap.forEach((key,val)-> toUpdate.append(key,val));
-            umc.update(eq("uID",eID), new Document("$set", toUpdate));      
+            if(umc.getOneFilter(new Document("uID", authID), new Document("type", 1)).getType().equals(UserType.Administrator)){
+                Type type = new TypeToken<Map<String, ?>>(){}.getType();
+                Map<String, ?> myMap = custom_gson.fromJson(content, type);
+                Document toUpdate = new Document();
+                myMap.forEach((key,val)-> toUpdate.append(key,val));
+                umc.update(eq("uID",eID), new Document("$set", toUpdate));   
+            } else return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson()).build();
         }
-        return new Document("success", "ka").toJson();
+        return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "Successfully changed").toJson()).build();
     }
     
     @PUT
-    @Path("/{uID}/follows")
-    @ApiOperation( value = "Follow/Unfollow user", notes = "uID" )
-    @Produces({MediaType.APPLICATION_JSON}) 
-    public String followUser(String content, @PathParam("uID") String uID) {
+    @ApiOperation( value = "Change logged in user", notes = "fieldToChange" )
+    @Path("/")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response updateMyUser(String content, @Context HttpHeaders httpHeaders, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            // first 
-            MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
-            umc.update(Filters.eq("uID", uID), new Document("$push", new Document("follows", Document.parse(new Gson().toJson(temp)))));
+            Type type = new TypeToken<Map<String, ?>>(){}.getType();
+            Map<String, ?> myMap = custom_gson.fromJson(content, type);
+            Document toUpdate = new Document();
+            myMap.forEach((key,val)-> toUpdate.append(key,val));
+            umc.update(eq("uID", authID), new Document("$set", toUpdate));      
         } catch (Exception e) {
-            return new Document("error", e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson()).build();
         }
-        return new Document("success", "Event has been modified").toJson();
+        return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "Successfully changed").toJson()).build();
+    }
+    
+    @PUT
+    @ApiOperation( value = "Follow a user", notes = "fieldToChange" )
+    @Path("/{uID}/follow")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    public Response followUser(@PathParam("uID") String uID, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        try { 
+            SlimUser temp = umc.getOneFilter(eq("uID", uID), new Document(), SlimUser.class);
+            umc.update(eq("uID", authID), new Document("$push", new Document("follows", Document.parse(custom_gson.toJson(temp)))));
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", e.getMessage()).toJson()).build();
+        }
+        return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "User follow has been modified").toJson()).build();
     }
 }

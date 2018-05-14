@@ -10,6 +10,8 @@ interface IMongoAccess<T> {
 
 	T getOneFilter(Bson filterQuery, Bson _projection);
         
+        <T> T getOneFilter(Bson filterQuery, Bson _projection, Class<T> clazz);
+        
         List<T> getAllFilter(Bson filterQuery, Bson _projection);
        
         <T> List<T> getAllFilter(Bson filterExpression, Bson _projection, Class<T> clazz);

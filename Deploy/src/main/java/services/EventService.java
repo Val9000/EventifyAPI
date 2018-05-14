@@ -5,7 +5,7 @@
  */
 package services;
 
-import com.google.gson.Gson;
+import Util.Auth;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
@@ -15,11 +15,13 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import data.models.Event;
 import data.models.EventCategory;
 import data.models.EventType;
+import data.models.Location;
 import data.models.MinimalEvent;
 import data.models.MinimalUser;
+import data.models.ParticipationType;
 import data.models.SlimEvent;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +36,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import static services.IService.custom_gson;
+import static services.IService.emc;
+import static services.IService.umc;
 
 /**
  * REST Web Service
@@ -60,10 +66,28 @@ public class EventService implements IService{
     // URI : /websources/events
     @GET
     @ApiOperation( value = "Get all events", notes = "Returns events", response = SlimEvent.class )
-    @Path("/")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getEvents() {
-        return new Gson().toJson(emc.getAllFilter(new Document(), new Document()));
+    public Response getAllSlimEvents(@Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        try {
+            Document projection = new Document("eID", 1)
+                    .append("name", 1)
+                    .append("totalLikes", 1)
+                    .append("maxParticipators", 1)
+                    .append("totalParticipators", 1)
+                    .append("category", 1);
+            List<SlimEvent> allFilter = emc.getAllFilter(new Document(), projection, SlimEvent.class);
+
+            if (allFilter.isEmpty()) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: EventSerivce - getAllSlimEvents", "Empty list ! ").toJson()).build();
+            }
+            return Response.status(Response.Status.OK).entity(custom_gson.toJson(allFilter)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getAllSlimEvents", "Exception:  " + e.getMessage()).toJson()).build();
+        }
     }
 
     // URI : /websources/events/{eID}
@@ -71,8 +95,17 @@ public class EventService implements IService{
     @ApiOperation( value = "Get specific event by eID", notes = "Returns one specific event", response = Event.class )
     @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getFullEvent(@PathParam("eID") String eID) {
-        return new Gson().toJson(emc.getOneFilter(eq("eID", eID), new Document()));
+    public Response getFullEvent(@PathParam("eID") String eID, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        Event oneFilter = emc.getOneFilter(eq("eID", eID), new Document());
+        if (oneFilter == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getFullEvent", "Exception:  Can't find Event with the id : " + eID).toJson()).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(custom_gson.toJson(oneFilter)).build();
+        }
     }
 
     // URI : /websources/events/{eID}/participators 
@@ -80,17 +113,25 @@ public class EventService implements IService{
     @ApiOperation( value = "Get participators of specific event", notes = "Returns all participators of one specific event", response = MinimalUser.class )
     @Path("/{eID}/participators")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getEventParticipators(@PathParam("eID") String eID) {
+    public Response getEventParticipators(@PathParam("eID") String eID, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            Collection<MinimalUser> participators = emc.getOneFilter(Filters.eq("eID", eID), new Document("participators", 1)).getParticipators();
-            if (participators.isEmpty()) {
-                return new Document("Warning: EventSerivce - getEventParticipators", "Empty list ! ").toJson();
+            Event oneFilter = emc.getOneFilter(Filters.eq("eID", eID), new Document("participators", 1));
+            if (oneFilter == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getEventParticipators", "Exception:  Can't find Event with the id : " + eID).toJson()).build();
+            } else {
+                Collection<MinimalUser> participators = oneFilter.getParticipators();
+                if (participators.isEmpty()) {
+                    return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: EventSerivce - getEventParticipators", "Empty list ! ").toJson()).build();
+                }
+                return Response.status(Response.Status.OK).entity(custom_gson.toJson(participators)).build();
             }
-            return new Gson().toJson(participators);
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - getEventParticipators", "Exception:  " + e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getEventParticipators", "Exception:  " + e.getMessage()).toJson()).build();
         }
-
     }
 
     // URI : /websources/events/minimal
@@ -98,45 +139,48 @@ public class EventService implements IService{
     @ApiOperation( value = "Get all events as minimal version", notes = "Returns all minimalEvents", response = MinimalEvent.class )
     @Path("/minimal")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getMinimalEvents() {
+    public Response getMinimalEvents(@Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            Document projection = new Document("eID", 1)
-                    .append("name", 1)
-                    .append("totalLikes", 1)
-                    .append("maxParticipators", 1)
-                    .append("totalParticipators", 1);
-            List<Event> allFilter = emc.getAllFilter(new Document(), projection);
+            Document projection = new Document("eID", 1).append("location", 1).append("category", 1);
+            List<MinimalEvent> allFilter = emc.getAllFilter(new Document(), projection, MinimalEvent.class);
             if (allFilter.isEmpty()) {
-                return new Document("Warning: EventSerivce - getMinimalEvents", "Empty list ! ").toJson();
+                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: EventSerivce - getMinimalEvents", "Empty list ! ").toJson()).build();
             }
-            return new Gson().toJson(allFilter);
+            return Response.status(Response.Status.OK).entity(custom_gson.toJson(allFilter)).build();
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson()).build();
         }
-
     }
 
     // URI : /websources/events
     @POST
     @ApiOperation( value = "Create an event", notes = "Event" )
     @Produces({MediaType.APPLICATION_JSON})
-    public String addEvent(String content, @Context HttpHeaders headers) {
+    public Response addEvent(String content, @Context HttpHeaders headers) {
         String eId = "";
         String uID = "";
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            HandleEventObject temp = new Gson().fromJson(content, HandleEventObject.class);
-            Event newEvent = new Event(temp.getName(), temp.getDescription(), temp.getMaxParticipators(), temp.getMinAge(), temp.getStartDate(), temp.getEndDate(), temp.getType(), temp.getCategory(), temp.getCreator());
+            HandleEventObject temp = custom_gson.fromJson(content, HandleEventObject.class);
+            Event newEvent = new Event(temp.getName(), temp.getDescription(), temp.getMaxParticipators(), temp.getMinAge(), temp.getStartDate(), temp.getEndDate(), temp.getLocation(), temp.getType(), temp.getCategory(), temp.getCreator());
             eId = emc.add(newEvent);
             newEvent.seteID(eId);
             emc.update(eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
             uID = headers.getRequestHeader("uID").get(0);
             SlimEvent se = new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators(), newEvent.getCategory());
-            umc.update(Filters.eq("uID", uID), new Document("$push", new Document("participatesIn", Document.parse(new Gson().toJson(se)))));
+            umc.update(Filters.eq("uID", uID), new Document("$push", new Document("participatesIn", Document.parse(custom_gson.toJson(se)))));
 
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson()).build();
         }
-        return new Document("eID", eId).toJson();
+        return Response.status(Response.Status.OK).entity(new Document("eID", eId).toJson()).build();
     }
 
     // URI : /websources/events/{eID}/participate
@@ -144,38 +188,51 @@ public class EventService implements IService{
     @ApiOperation( value = "Participate/Unparticipate in an event", notes = "eID" )    
     @Path("/{eID}/participate")
     @Produces({MediaType.APPLICATION_JSON})
-    public String de_participate(String content, @PathParam("eID") String eID) {
+    public Response de_participate(String content, @PathParam("eID") String eID, @Context HttpHeaders headers) {
+        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
+        String authID = headers.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         UpdateResult updateResult = null;
-
         try {
-            MinimalUser temp = new Gson().fromJson(content, MinimalUser.class);
-            updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(gson.toJson(temp)))));
+            String type = content.split("type\": \"")[1].split("\"")[0];
+            MinimalUser temp;
+            if(type.equals(ParticipationType.Anonymous.toString())){
+                temp = new MinimalUser(authID, "Anonymous", "User", "anonymous");
+            } else {
+                temp = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
+            }
+            updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
             // if the count is 0 we know that it already exits. if it does.. then delete the object.
             if (updateResult.getModifiedCount() == 0) {
-                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(gson.toJson(temp)))));
+                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
             }
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson()).build();
         }
-        return new Document("success", updateResult.wasAcknowledged() + " count: " + updateResult.getModifiedCount()).toJson();
+        return Response.status(Response.Status.OK).entity(new Document("success", updateResult.wasAcknowledged() + " count: " + updateResult.getModifiedCount()).toJson()).build();
     }
 
     @PUT
     @ApiOperation( value = "Change details of one specific event", notes = "fieldToChange" )
     @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String updateEventFields(String content, @PathParam("eID") String eID, @Context HttpHeaders httpHeaders) {
+    public Response updateEventFields(String content, @PathParam("eID") String eID, @Context HttpHeaders httpHeaders) {
+        if(httpHeaders.getRequestHeader("API_KEY") == null || httpHeaders.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
+        String API_KEY = httpHeaders.getRequestHeader("API_KEY").get(0);
+        String authID = httpHeaders.getRequestHeader("uID").get(0);
+        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
-            String  jsonToUpdate = httpHeaders.getRequestHeader("fieldsToUpdate").get(0);
-            Type type = new TypeToken<Map<String, ?>>(){}.getType();
-            Map<String, ?> myMap = gson.fromJson(jsonToUpdate, type);
+            Type type = new TypeToken<Map<String, ?>>() {
+            }.getType();
+            Map<String, ?> myMap = custom_gson.fromJson(content, type);
             Document toUpdate = new Document();
-            myMap.forEach((key,val)-> toUpdate.append(key,val));
-            emc.update(eq("eID",eID), new Document("$set", toUpdate));      
+            myMap.forEach((key, val) -> toUpdate.append(key, val));
+            emc.update(eq("eID", eID), new Document("$set", toUpdate));
         } catch (Exception e) {
-            return new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - updateEventFields", e.getMessage()).toJson()).build();
         }
-        return new Document("success", "ka").toJson();
+        return Response.status(Response.Status.OK).entity(new Document("success", "fields updated").toJson()).build();
     }
 
     public class HandleEventObject {
@@ -184,12 +241,21 @@ public class EventService implements IService{
         private String description;
         private int maxParticipators;
         private int minAge;
-        private LocalDate startDate;
-        private LocalDate endDate;
+        private Instant startDate;
+        private Instant endDate;
+        private Location location;
         private EventType type;
         private EventCategory category;
         private MinimalUser creator;
 
+        public Location getLocation() {
+            return location;
+        }
+
+        public void setLocation(Location location) {
+            this.location = location;
+        }
+        
         public String getName() {
             return name;
         }
@@ -206,11 +272,11 @@ public class EventService implements IService{
             return minAge;
         }
 
-        public LocalDate getStartDate() {
+        public Instant getStartDate() {
             return startDate;
         }
 
-        public LocalDate getEndDate() {
+        public Instant getEndDate() {
             return endDate;
         }
 
@@ -225,22 +291,5 @@ public class EventService implements IService{
         public MinimalUser getCreator() {
             return creator;
         }
-
     }
 }
-
-//{
-//    "name": "Peter",
-//    "follows": [
-//        {
-//            "uID": "5ae481d36570441d54c90f1b",
-//            "firstName": "Peter",
-//            "lastName": "Peter",
-//            "profilePicture": "mypic.com/x.png"
-//        }
-//    ],
-//    "password": "$2a$07$8dzyMMB3Jl6v.8EaY5byg.6RyQQf0HGuM2VRz2EYDP7lpSy3Qy9si",
-//    "participatesIn": [],
-//    "ratings": [],
-//    "likes": [],
-//}

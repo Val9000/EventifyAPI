@@ -112,7 +112,6 @@ public class EventService implements IService {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getEventParticipators", "Exception:  " + e.getMessage()).toJson()).build();
         }
-
     }
 
     // URI : /websources/events/minimal
@@ -134,7 +133,6 @@ public class EventService implements IService {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson()).build();
         }
-
     }
 
     // URI : /websources/events
@@ -269,7 +267,6 @@ public class EventService implements IService {
         public MinimalUser getCreator() {
             return creator;
         }
-
     }
 }
 

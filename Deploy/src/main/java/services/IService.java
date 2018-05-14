@@ -9,8 +9,11 @@ package services;
  *
  * @author Chris
  */
+import Util.InstantTypeConverter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import data.dao.*;
+import java.time.Instant;
 
 /**
  *
@@ -19,5 +22,5 @@ import data.dao.*;
 public interface IService {
     public static final  EventMongoConcrete emc = EventMongoConcrete.getInstance();
     public static final  UserMongoConcrete umc = UserMongoConcrete.getInstance();
-    public static final  Gson gson = new Gson();
+    public static final Gson custom_gson  = new GsonBuilder().registerTypeAdapter(Instant.class, new InstantTypeConverter()).create();
 }

@@ -7,7 +7,6 @@ package data.models;
 
 import com.google.gson.Gson;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
