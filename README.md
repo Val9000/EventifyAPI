@@ -29,6 +29,8 @@ This app will manage user created eventActivities. They can be added, edited and
 
 * *[Schnittstellendefinition](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ecna0Q--hulLnKaud-q1ATgBdUgAsIqeprQZuKkLSFXxVQ?e=NY39gD)*
 
+* *Schnittstellendefinition genau - Webservice (Postman requests)*
+
 * *[Akzeptanzkriterien](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EWKYWMxxgSVFk8PcSJsaWOABvfcUlnKE-nCgzaNNNYeKKw?e=fTZHrs)*
 
 * *[Class Diagram (final - violet uml sourceforge)](./misc/syp/Eventify.class.violet.html)*
@@ -39,6 +41,8 @@ Our services are Java based and will be deployed on herokuapp.
 
 * *[Repository](https://github.com/Val9000/EventifyAPI)*
 * *[Deployed](https://eventifyapi.herokuapp.com/swagger)*
+* *[Postman Requests for local Develop server](https://github.com/Val9000/EventifyAPI/blob/master/Eventify%20local.postman_collection.json)*
+* *[Postman Requests for deployed Deploy server](https://github.com/Val9000/EventifyAPI/blob/master/Eventify%20deployed.postman_collection.json)*
 
 ### Tags
 * Jetty
