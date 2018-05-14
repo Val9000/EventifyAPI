@@ -50,6 +50,8 @@ Our services are Java based and will be deployed on herokuapp.
 * Jersey
 * Swagger
 * Embedded Server
+* Glassfish
+* Postman
 * Heroku
 * BSON
 * GSON
