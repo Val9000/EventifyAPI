@@ -1,0 +1,662 @@
+{
+	"id": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+	"name": "Eventify deployed",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"name": "Events",
+			"description": "",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"order": [
+				"b777fb6d-e44e-834c-7eff-9db37bb747f9",
+				"84a49b32-40ed-1f73-4a3a-82bed5ad89d7",
+				"6c80975e-a710-b9d4-98bd-7aec88c5ef98",
+				"1984f788-268b-9a6d-f112-24d75776e4c4",
+				"ddac9cd8-fcb9-5aa6-d7ba-f41f08b06517",
+				"d91e3421-17c7-0a3b-2c87-3819721e08ae",
+				"04b4ea0b-4cab-277e-f0b1-4a6548b11135"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "83220327-f414-e457-5d36-e7b4305f8b02"
+		},
+		{
+			"name": "Login",
+			"description": "",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"order": [
+				"5adb4841-088e-9de9-5fb9-ddca4207c834"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "fcfc9f44-6cdf-8bcb-d97c-5382fc6a51fc"
+		},
+		{
+			"name": "Register",
+			"description": "",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"order": [
+				"e53f435c-7653-08bc-97b9-602a4e900e55"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "0fb5e2a9-90b2-fb11-5cd5-fb230074b76d"
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"order": [
+				"7b4263b5-f726-aeaf-28a4-9046f7cf8663",
+				"373fa287-4d5b-0424-d642-3fe613c15852",
+				"5f0f4e79-6097-f117-9f68-7f7d7de14142",
+				"c58dbc5d-9622-9124-faf5-621ec92bd55a",
+				"7e20e569-8d29-b8bf-8a38-a208774b12d0",
+				"c50fc1d3-31bd-fed9-66ff-fc893957ac2a"
+			],
+			"owner": "3278867",
+			"folders_order": [],
+			"id": "8dccf404-d74d-9273-f5be-dbd73176e1c9"
+		}
+	],
+	"folders_order": [
+		"0fb5e2a9-90b2-fb11-5cd5-fb230074b76d",
+		"fcfc9f44-6cdf-8bcb-d97c-5382fc6a51fc",
+		"83220327-f414-e457-5d36-e7b4305f8b02",
+		"8dccf404-d74d-9273-f5be-dbd73176e1c9"
+	],
+	"timestamp": 1526325985357,
+	"owner": "3278867",
+	"public": false,
+	"requests": [
+		{
+			"id": "04b4ea0b-4cab-277e-f0b1-4a6548b11135",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af97265a2d6f5424884dff1/participate",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326481415,
+			"name": "/api/events/{eID}/participate",
+			"description": "Participate in event",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": " {\n \t\"type\": \"Public\"\n }"
+		},
+		{
+			"id": "1984f788-268b-9a6d-f112-24d75776e4c4",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af8644b6570441b5404c3e3/participators",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326484182,
+			"name": "/api/events/{eID}/participators",
+			"description": "Get all participators of an event",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "373fa287-4d5b-0424-d642-3fe613c15852",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/list/participatesIn",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326479884,
+			"name": "/api/users/list/{listName}",
+			"description": "Get list of current User",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "5adb4841-088e-9de9-5fb9-ddca4207c834",
+			"headers": "Content-Type: application/json\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/login",
+			"folder": "fcfc9f44-6cdf-8bcb-d97c-5382fc6a51fc",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326365491,
+			"name": "/api/login",
+			"description": "Login as User",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": "{\n\t\"email\": \"val@val.com\",\n\t\"password\": \"val\"\n}"
+		},
+		{
+			"id": "5f0f4e79-6097-f117-9f68-7f7d7de14142",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326479192,
+			"name": "/api/users/{uID}",
+			"description": "Get specific Users profile",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "6c80975e-a710-b9d4-98bd-7aec88c5ef98",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/minimal",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326485199,
+			"name": "/api/events/minimal",
+			"description": "Get all minimal events",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "7b4263b5-f726-aeaf-28a4-9046f7cf8663",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326480684,
+			"name": "/api/users",
+			"description": "Get current User",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "7e20e569-8d29-b8bf-8a38-a208774b12d0",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326477704,
+			"name": "/api/users/{uID}",
+			"description": "Change field of user",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+		},
+		{
+			"id": "84a49b32-40ed-1f73-4a3a-82bed5ad89d7",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af8644b6570441b5404c3e3/",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326486099,
+			"name": "/api/events/{eID}",
+			"description": "Get one specific event",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "b777fb6d-e44e-834c-7eff-9db37bb747f9",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326487422,
+			"name": "/api/events",
+			"description": "Get all Events",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": []
+		},
+		{
+			"id": "c50fc1d3-31bd-fed9-66ff-fc893957ac2a",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd/follow",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326475603,
+			"name": "/api/users/{uID}/follow",
+			"description": "Follow user",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "c58dbc5d-9622-9124-faf5-621ec92bd55a",
+			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/",
+			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326478345,
+			"name": "/api/users/",
+			"description": "Change field of logged in user",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+		},
+		{
+			"id": "d91e3421-17c7-0a3b-2c87-3819721e08ae",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af97265a2d6f5424884dff1/",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326482336,
+			"name": "/api/events/{eID}",
+			"description": "Change Field",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"suicide2\"\n}"
+		},
+		{
+			"id": "ddac9cd8-fcb9-5aa6-d7ba-f41f08b06517",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "uID",
+					"value": "5af9599ca2d6f53ca8b702a7",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/",
+			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326483195,
+			"name": "/api/events",
+			"description": "Create an event",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"suicide\",\n\t\"description\": \"die\",\n\t\"maxParticipators\": 20,\n\t\"minAge\": 18,\n\t\"startDate\": \"2018-05-05T12:00:00.000Z\",\n\t\"endDate\": \"2018-05-05T13:00:00.000Z\",\n\t\"location\": {\n\t\t\"lat\": 43.235235,\n\t\t\"lon\": 124.342532\n\t},\n\t\"type\": \"Public\",\n\t\"category\": \"Activity\",\n\t\"user\": {\n\t\t\"uID\": \"5af9599ca2d6f53ca8b702a7\",\n\t\t\"firstName\": \"valibu\",\n\t\t\"lastName\": \"berisa\",\n\t\t\"profilePicture\": \"lol.png\"\n\t}\n}"
+		},
+		{
+			"id": "e53f435c-7653-08bc-97b9-602a4e900e55",
+			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "API_KEY",
+					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "https://eventifyapi.herokuapp.com/rest/api/register",
+			"folder": "0fb5e2a9-90b2-fb11-5cd5-fb230074b76d",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1526326371159,
+			"name": "/api/register",
+			"description": "Register a user",
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"responses": [],
+			"rawModeData": " {\n \t\"firstName\": \"christian\",\n \t\"lastName\": \"winkler\",\n \t\"birthdate\": \"1999-09-28T01:01:01.999Z\",\n \t\"email\": \"chris@bashit.me\",\n \t\"password\": \"password\"\n }"
+		}
+	]
+}

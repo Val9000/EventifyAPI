@@ -1,6 +1,6 @@
 {
 	"id": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
-	"name": "Eventify",
+	"name": "Eventify local",
 	"description": "",
 	"order": [],
 	"folders": [
@@ -171,24 +171,23 @@
 				}
 			],
 			"url": "http://local:8080/Develop/api/events",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
 			"queryParams": [],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "GET",
-			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
 			"data": null,
 			"dataMode": "params",
-			"name": "/api/events",
-			"description": "Get all Events",
-			"descriptionFormat": "html",
-			"time": 1526296685029,
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710"
+			"time": 1526326255148,
+			"name": "/api/events",
+			"description": "Get all Events",
+			"collectionId": "c04b2dba-5f36-b57c-18f5-b284ff95709d",
+			"responses": []
 		},
 		{
 			"id": "39619575-3223-23b3-a584-bf226434adc5",
@@ -378,6 +377,7 @@
 				}
 			],
 			"url": "http://localhost:8080/Develop/api/login",
+			"folder": "7f3963c7-1c0c-322d-9891-6ea38acbbb00",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -527,6 +527,7 @@
 				}
 			],
 			"url": "http://local:8080/Develop/api/events/5af8644b6570441b5404c3e3/",
+			"folder": "8f7f2b28-d002-d663-0023-3cecabf49710",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -639,6 +640,7 @@
 				}
 			],
 			"url": "http://localhost:8080/Develop/api/register",
+			"folder": "751f95f9-895f-e155-057d-fe7eb34e4e6d",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
