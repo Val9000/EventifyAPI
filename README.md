@@ -19,6 +19,8 @@ This app will manage user created eventActivities. They can be added, edited and
 
 * *[Daily Scrum Log](https://htlvillachat-my.sharepoint.com/:x:/g/personal/winklerc_edu_htl-villach_at/EXtbpCOansBAoR7AqLHziX0BhJlfjjP077jxgPgL7cal_A?e=qxp9wd)*
 
+* *[Changelog](https://htlvillachat-my.sharepoint.com/:x:/g/personal/winklerc_edu_htl-villach_at/EbIpKSl7UY1LvXmU4ruy584Bk8ntOYE6KvLfDNGshLGgeg?e=Wbh2gf)*
+
 * *[User Stories](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUmzPwoXzbZFs3ojCz2KYNUBqhjcG0TBia4W-uYe5KzEYw?e=QhVqnu)*
 
 * *[User Stories für Präsentation 25.04.2018](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ee5Pqw32aUFOp-oT1TXsE10By10ltGCQQ-CL-mSW0g7Yig?e=IdRDb5)*
