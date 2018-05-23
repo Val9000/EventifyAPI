@@ -1,1 +1,0 @@
-web: java -jar ./target/EventifyAPI-1.0.jar
