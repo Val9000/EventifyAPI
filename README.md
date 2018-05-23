@@ -19,6 +19,8 @@ This app will manage user created eventActivities. They can be added, edited and
 
 * *[Daily Scrum Log](https://htlvillachat-my.sharepoint.com/:x:/g/personal/winklerc_edu_htl-villach_at/EXtbpCOansBAoR7AqLHziX0BhJlfjjP077jxgPgL7cal_A?e=qxp9wd)*
 
+* *[Changelog](https://htlvillachat-my.sharepoint.com/:x:/g/personal/winklerc_edu_htl-villach_at/EbIpKSl7UY1LvXmU4ruy584Bk8ntOYE6KvLfDNGshLGgeg?e=Wbh2gf)*
+
 * *[User Stories](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUmzPwoXzbZFs3ojCz2KYNUBqhjcG0TBia4W-uYe5KzEYw?e=QhVqnu)*
 
 * *[User Stories für Präsentation 25.04.2018](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ee5Pqw32aUFOp-oT1TXsE10By10ltGCQQ-CL-mSW0g7Yig?e=IdRDb5)*
@@ -28,6 +30,8 @@ This app will manage user created eventActivities. They can be added, edited and
 <!-- (https://www.lucidchart.com/documents/view/c08b1d8b-54e0-43a7-8066-4af53858b357/0# Edit) -->
 
 * *[Schnittstellendefinition](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ecna0Q--hulLnKaud-q1ATgBdUgAsIqeprQZuKkLSFXxVQ?e=NY39gD)*
+
+* *Schnittstellendefinition genau - Webservice (Postman requests)*
 
 * *[Akzeptanzkriterien](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EWKYWMxxgSVFk8PcSJsaWOABvfcUlnKE-nCgzaNNNYeKKw?e=fTZHrs)*
 
@@ -39,12 +43,17 @@ Our services are Java based and will be deployed on herokuapp.
 
 * *[Repository](https://github.com/Val9000/EventifyAPI)*
 * *[Deployed](https://eventifyapi.herokuapp.com/swagger)*
+* *[Postman Requests for local Develop server](https://raw.githubusercontent.com/Val9000/EventifyAPI/master/Eventify%20local.postman_collection.json)*
+* *Postman Requests for local Deploy server - replace "Develop" with "rest" in url*
+* *[Postman Requests for deployed Deploy server](https://raw.githubusercontent.com/Val9000/EventifyAPI/master/Eventify%20deployed.postman_collection.json)*
 
 ### Tags
 * Jetty
 * Jersey
 * Swagger
 * Embedded Server
+* Glassfish
+* Postman
 * Heroku
 * BSON
 * GSON
