@@ -37,6 +37,8 @@ This app will manage user created eventActivities. They can be added, edited and
 
 * *[Class Diagram (final - violet uml sourceforge)](./misc/syp/Eventify.class.violet.html)*
 
+* *[Class Diagram Screenshot](https://raw.githubusercontent.com/Chris6077/Eventify/master/misc/diagram.png)*
+
 # Webservice
 
 Our services are Java based and will be deployed on herokuapp.
