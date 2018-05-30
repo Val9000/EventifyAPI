@@ -50,17 +50,19 @@ Our services are Java based and will be deployed on herokuapp.
 * *[Postman Requests for deployed Deploy server](https://raw.githubusercontent.com/Val9000/EventifyAPI/master/Eventify%20deployed.postman_collection.json)*
 
 ### Tags
-* Jetty
-* Jersey
-* Swagger
 * Embedded Server
-* Glassfish
-* Postman
-* Heroku
-* BSON
-* GSON
-* JSON
-* MongoDB Java Driver Core
+* Jetty [9.2.11.v20150529]
+* Spring [3.2.4.RELEASE]
+* Jackson [2.2.2]
+* Swagger [1.3.0]
+* Glassfish [4.1]
+* Postman [5.5.2]
+* Heroku 
+* BSON [3.7.0-rc0]
+* GSON [2.8.2]
+* JSON [20180130]
+* JBCrypt [0.4]
+* MongoDB Java Driver Core [3.7.0-rc0]
 
 # App
 
@@ -69,7 +71,7 @@ Our app is Java based and programmed in Android Studio.
 * *[Repository](https://github.com/Chris6077/Eventify)*
 
 ### Tags
-* Graddle
-* Android Studio
-* GSON
-* JSON
+* Graddle [Multiple versions]
+* Android Studio [Multiple versions]
+* GSON [2.5]
+* Google Play Services [11.4.0] 
