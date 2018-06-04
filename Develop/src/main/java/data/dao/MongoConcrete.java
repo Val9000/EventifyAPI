@@ -51,7 +51,6 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         collection.insertOne(x);
         ObjectId u = (ObjectId) x.get("_id");
 
-        System.out.println(u.toString());
         id = u.toString();
         return id;
     }
@@ -121,5 +120,13 @@ public abstract class MongoConcrete<T> implements IMongoAccess<T> {
         UpdateResult res = collection.updateOne(filterQuery, updateObject);
         return res;
     }
+    
+    @Override
+    public UpdateResult updateMany(Bson filterQuery, Bson updateObject) {
+        UpdateResult res = collection.updateMany(filterQuery, updateObject);
+        return res;
+    }
+    
+    
 
 }

@@ -23,4 +23,7 @@ interface IMongoAccess<T> {
 	void removeMany(Bson filterQuery);
         
         UpdateResult update(Bson filterQuery, Bson updateObject);
+        
+        UpdateResult updateMany(Bson filterQuery, Bson updateObject);
+        
 }

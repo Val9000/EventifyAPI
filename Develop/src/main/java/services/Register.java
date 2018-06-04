@@ -7,7 +7,7 @@ package services;
 
 import Util.Auth;
 import com.mongodb.client.model.Filters;
-import data.dao.UserMongoConcrete;
+import static com.mongodb.client.model.Filters.eq;
 import data.models.User;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -47,36 +47,17 @@ public class Register implements IService{
         if(!Auth.Authenticate(API_KEY)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try { 
             User temp = custom_gson.fromJson(content, User.class);
+            User oneFilter = umc.getOneFilter(eq("email", temp.getEmail()), new Document());
+            if(oneFilter != null && oneFilter.getEmail().equals(temp.getEmail())) 
+                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", "user with this email already exits.").toJson()).build();
             User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getEmail(), BCrypt.hashpw(temp.getPassword(), "$2a$07$2dq0/4gdywDsSSZnTcUVWu"), temp.getProfilePicture());
-            UserMongoConcrete umc = UserMongoConcrete.getInstance();
             uId = umc.add(newUser);
             newUser.setuID(uId);
             umc.update(Filters.eq("_id", new ObjectId(uId)), new Document("$set", new Document("uID", uId))); 
-            System.out.println("*******added new user product*******");
         } catch (Exception e) {
-            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", e.getMessage()).toJson()).build();
         }
         return Response.status(Response.Status.CREATED).entity(new Document("uID", uId).toJson()).build();
     }
     
-    
-    
-//    public String newUser(String content) throws Exception {
-//        String uId = "";
-//        try {             
-//            User temp = custom_gson.fromJson(content, User.class);
-//            String x = BCrypt.hashpw(temp.getPassword(), "$2a$07$2dq0/4gdywDsSSZnTcUVWu"); // for simulation , gehört zum client 
-//            //User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthDate(), temp.getUsername(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
-//            User newUser = new User(temp.getFirstName(), temp.getLastName(), temp.getBirthdate(), temp.getEmail(), BCrypt.hashpw(x, BCrypt.gensalt(7)), temp.getProfilePicture());
-//            UserMongoConcrete umc = UserMongoConcrete.getInstance();
-//            uId = umc.add(newUser);
-//            newUser.setuID(uId);
-//            umc.update(Filters.eq("_id", new ObjectId(uId)), new Document("$set", new Document("uID", uId))); 
-//            System.out.println("*******added new user product*******");
-//        } catch (Exception e) {
-//            return new Document("error", e.getMessage()).toJson();
-//        }
-//        return new Document("uID", uId).toJson();
-//    }
 }
