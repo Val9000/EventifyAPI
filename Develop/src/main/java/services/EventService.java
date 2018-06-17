@@ -65,7 +65,7 @@ public class EventService implements IService {
 
             List<SlimEvent> allFilter = emc.getAllFilter(new Document(), projection, SlimEvent.class);
 
-            if (allFilter.isEmpty()) {
+            if (allFilter == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: EventSerivce - getAllSlimEvents", "Empty list ! ").toJson()).build();
             }
             return Response.status(Response.Status.OK).entity(custom_gson.toJson(allFilter)).build();
@@ -128,7 +128,7 @@ public class EventService implements IService {
         try {
             Document projection = new Document("eID", 1).append("location", 1).append("category", 1);
             List<MinimalEvent> allFilter = emc.getAllFilter(new Document(), projection, MinimalEvent.class);
-            if (allFilter.isEmpty()) {
+            if (allFilter == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Warning: EventSerivce - getMinimalEvents", "Empty list ! ").toJson()).build();
             }
             return Response.status(Response.Status.OK).entity(custom_gson.toJson(allFilter)).build();
@@ -165,63 +165,6 @@ public class EventService implements IService {
         }
         return Response.status(Response.Status.OK).entity(new Document("eID", eId).toJson()).build();
     }
-
-//    // URI : /websources/events/{eID}/participate
-//    @PUT
-//    @Path("/{eID}/participate")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public Response de_participate(String content, @PathParam("eID") String eID, @Context HttpHeaders headers) {
-//        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
-//        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
-//        String authID = headers.getRequestHeader("uID").get(0);
-//        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
-//        UpdateResult updateResult = null;
-//        UpdateResult updateResult2 = null;
-//        try {
-//            String type = content.split("type\": \"")[1].split("\"")[POSTpost0];
-//            MinimalUser temp;
-//            if(type.equals(ParticipationType.Anonymous.toString())){
-//                temp = new MinimalUser(authID, "Anonymous", "User", "anonymous");
-//            } else {
-//                temp = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
-//            }
-//            updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
-//            SlimEvent slimE = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
-//            updateResult2 = umc.update(eq("uID", authID), new Document("$addToSet", new Document("participatesIn", Document.parse(custom_gson.toJson(slimE)))));
-//            // if the count is 0 we know that it already exits. if it does.. then delete the object.
-//            if (updateResult.getModifiedCount() == 0 && updateResult2.getModifiedCount() == 0) {
-//                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
-//                umc.update(eq("uID", authID), new Document("$pull", new Document("participatesIn", Document.parse(custom_gson.toJson(slimE)))));
-//            }
-//            
-//        } catch (Exception e) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson()).build();
-//        }
-//        return Response.status(Response.Status.OK).entity(new Document("success", updateResult.wasAcknowledged() + " count: " + updateResult.getModifiedCount()).toJson()).build();
-//    }
-//    
-//    @PUT
-//    @Path("/{eID}/like")
-//    @Produces({MediaType.APPLICATION_JSON}) 
-//    public Response un_likeEvent(@PathParam("eID") String eID, @Context HttpHeaders headers) {
-//        if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
-//        String API_KEY = headers.getRequestHeader("API_KEY").get(0);
-//        String authID = headers.getRequestHeader("uID").get(0);
-//        if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
-//        try { 
-//            SlimEvent temp = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
-//            UpdateResult update = umc.update(eq("uID", authID), new Document("$pull", new Document("likes", new Document("eID", eID)))); // $addToSet won't work since the total likes will be always different...
-//            if(update.getModifiedCount() == 1){
-//                emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", temp.getTotalLikes() - 1)));
-//                return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "Event has been un - liked").toJson()).build();
-//            }
-//            umc.update(eq("uID", authID), new Document("$addToSet", new Document("likes", Document.parse(custom_gson.toJson(temp)))));
-//            emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", temp.getTotalLikes() + 1)));               
-//        } catch (Exception e) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", e.getMessage()).toJson()).build();
-//        }
-//        return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "Event has been liked").toJson()).build();
-//    } 
     
     @PUT
     @Path("/{eID}/{action}")
@@ -245,6 +188,79 @@ public class EventService implements IService {
         }
     }
 
+    
+    private Response like(String eID, String authID)    {
+        try {
+            String msg = "";
+            SlimEvent check_Event = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
+            if (check_Event == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", "Event with this id : " + eID + " doesn't exist.").toJson()).build();
+            }
+
+            SlimEvent oldEvent = umc.getOneFilter(Filters.and(eq("uID", authID),
+                    Filters.elemMatch("likes", new Document("eID", eID))),
+                    new Document(), SlimEvent.class);
+            
+            if (oldEvent == null) { // we know that user didn't like this event yet so add it
+                Document parse = Document.parse(custom_gson.toJson(check_Event));
+                umc.update(eq("uID", authID), new Document("$push", new Document("likes", Document.parse(custom_gson.toJson(check_Event)))));
+                emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", check_Event.getTotalLikes() + 1)));
+                msg = "Event has been liked";
+            } else {
+                umc.update(eq("uID", authID), new Document("$pull", new Document("likes", new Document("eID", eID))));
+                int newLikesNr = check_Event.getTotalLikes() - 1; // i hab keinen plan warum es so geht...  wenn i des gleich im update eine schreib is es aufamal -1 ? wtf
+                emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", newLikesNr)));
+                msg = "Event has been de-liked";
+            }
+            return Response.status(Response.Status.OK).entity(new Document("success", msg).toJson()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", e.getMessage()).toJson()).build();
+        }      
+    }
+
+    private Response participate(String eID, String authID, String content) {
+        try {
+            String msg = "";
+            String type = content.split("type\": \"")[1].split("\"")[0];
+            MinimalUser tempUser = null;
+            SlimEvent tempEvent = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
+    
+            tempUser = emc.getOneFilter(Filters.and(eq("eID", eID),
+                        Filters.elemMatch("participators", new Document("uID", authID))),
+                        new Document(), MinimalUser.class);
+            
+            if (tempUser == null) { // we know that he yet didn't participate so let's add it to the list     
+                if(tempEvent.getTotalParticipators() >= tempEvent.getMaxParticipators()) 
+                    return Response.status(Response.Status.BAD_REQUEST).entity(new Document("info: ", "Event is already full").toJson()).build();
+                
+                if (type.equals(ParticipationType.Anonymous.toString())) {
+                    tempUser = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
+                    tempUser.setFirstName("Anonymous");
+                    tempUser.setLastName("User");
+                    tempUser.setProfilePicture("anonymous.pic");
+                    msg = "Event has been participated anonymously";
+                } else{
+                    tempUser = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
+                }
+                umc.update(eq("uID", authID), new Document("$push", new Document("participatesIn", Document.parse(custom_gson.toJson(tempEvent)))));
+                emc.update(eq("eID", eID), new Document("$push", new Document("participators", Document.parse(custom_gson.toJson(tempUser)))));
+                emc.update(eq("eID", eID), new Document("$set", new Document("totalParticipators", tempEvent.getTotalParticipators() + 1)));
+                
+                if(!tempUser.getFirstName().equals("Anonymous")) msg = "Event has been participated";
+                
+            } else {
+                umc.update(eq("uID", authID), new Document("$pull", new Document("participatesIn", new Document("eID", eID))));
+                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(custom_gson.toJson(tempUser)))));
+                emc.update(eq("eID", eID), new Document("$set", new Document("totalParticipators", tempEvent.getTotalParticipators() - 1)));
+                msg = "Event has been de - participated";
+            } 
+            
+            return Response.status(Response.Status.ACCEPTED).entity(new Document("success", msg).toJson()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson()).build();
+        }
+    }
+    
     @PUT
     @Path("/{eID}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -264,48 +280,6 @@ public class EventService implements IService {
         }
         return Response.status(Response.Status.OK).entity(new Document("success", "fields updated").toJson()).build();
     }
-
-    private Response like(String eID, String authID) {
-        try { 
-            SlimEvent temp = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
-            UpdateResult update = umc.update(eq("uID", authID), new Document("$pull", new Document("likes", new Document("eID", eID)))); // $addToSet won't work since the total likes will be always different...
-            if(update.getModifiedCount() == 1){
-                emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", temp.getTotalLikes() - 1)));
-                return Response.status(Response.Status.ACCEPTED).entity(new Document("success", "Event has been un - liked").toJson()).build();
-            }
-            umc.update(eq("uID", authID), new Document("$addToSet", new Document("likes", Document.parse(custom_gson.toJson(temp)))));
-            emc.update(eq("eID", eID), new Document("$set", new Document("totalLikes", temp.getTotalLikes() + 1)));               
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("error", e.getMessage()).toJson()).build();
-        }
-        return Response.status(Response.Status.OK).entity(new Document("success", "fields updated").toJson()).build();
-    }
-
-    private Response participate(String eID, String authID, String content) {
-        UpdateResult updateResult = null;
-        UpdateResult updateResult2 = null;
-        try {
-            String type = content.split("type\": \"")[1].split("\"")[0];
-            MinimalUser temp;
-            if(type.equals(ParticipationType.Anonymous.toString())){
-                temp = new MinimalUser(authID, "Anonymous", "User", "anonymous");
-            } else {
-                temp = umc.getOneFilter(eq("uID", authID), new Document(), MinimalUser.class);
-            }
-            updateResult = emc.update(eq("eID", eID), new Document("$addToSet", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
-            SlimEvent slimE = emc.getOneFilter(eq("eID", eID), new Document(), SlimEvent.class);
-            updateResult2 = umc.update(eq("uID", authID), new Document("$addToSet", new Document("participatesIn", Document.parse(custom_gson.toJson(slimE)))));
-            // if the count is 0 we know that it already exits. if it does.. then delete the object.
-            if (updateResult.getModifiedCount() == 0 && updateResult2.getModifiedCount() == 0) {
-                emc.update(eq("eID", eID), new Document("$pull", new Document("participators", Document.parse(custom_gson.toJson(temp)))));
-                umc.update(eq("uID", authID), new Document("$pull", new Document("participatesIn", Document.parse(custom_gson.toJson(slimE)))));
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - de_participate", e.getMessage()).toJson()).build();
-        }
-        return Response.status(Response.Status.OK).entity(new Document("success", "fields updated").toJson()).build();
-    }
-    
 
     public class HandleEventObject {
 
