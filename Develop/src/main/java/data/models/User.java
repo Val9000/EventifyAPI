@@ -203,6 +203,14 @@ public class User {
     public void setRatings(ArrayList<Integer> rates) {
         this.ratings = ratings;
     }
+    
+    public ArrayList<SlimEvent> getCreatedEvents(){
+        return createdEvents;
+    }
+    
+    public void setCreatedEvents(ArrayList<SlimEvent> createdEvents){
+        this.createdEvents = createdEvents;
+    }
 
     public ArrayList<Integer> getRatings() {
         return ratings;
