@@ -34,6 +34,7 @@ public class User {
     private ArrayList<SlimUser> follows;
     private ArrayList<SlimEvent> likes;
     private ArrayList<SlimEvent> participatesIn;
+    private ArrayList<SlimEvent> createdEvents;
 
     public User(String firstName, String lastName, Instant birthDate, String email, String password, String profilePicture) {
         this.firstName = firstName;

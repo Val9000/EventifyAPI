@@ -154,6 +154,8 @@ public class EventService implements IService {
             eId = emc.add(newEvent);
             newEvent.seteID(eId);
             UpdateResult update = emc.update(eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
+            SlimEvent tempEv = emc.getOneFilter(eq("eID", eId), new Document(), SlimEvent.class);
+            update = umc.update(eq("uID", authID), new Document("$push", new Document("createdEvents", Document.parse(custom_gson.toJson(tempEv)))));
             User oneFilter = umc.getOneFilter(eq("uID", authID), new Document(), User.class);
             umc.update(eq("uID", authID), new Document("$set", new Document("numberOfCreated", oneFilter.getNumberOfCreated() + 1)));
         } catch (Exception e) {

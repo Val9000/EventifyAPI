@@ -48,11 +48,12 @@ public class UserService implements IService {
     List<String> userListNames;
 
     public UserService() {
-        userListNames = Arrays.asList("follows", "participatesIn", "ratings", "likes");
+        userListNames = Arrays.asList("follows", "participatesIn", "ratings", "likes", "createdEvents");
     }
 
     // URI : /websources/users/
     //-----------------------Was soll des sein ??? wsl hast du die vertan ------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------Schiab den Scheiß den du baust holt auf mi xD des host du gmocht-----------------------------------------------------------------------------------------------------------
 //    @GET
 //    @Path("/")
 //    @Produces({MediaType.APPLICATION_JSON})
