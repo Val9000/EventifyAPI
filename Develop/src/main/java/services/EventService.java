@@ -142,10 +142,10 @@ public class EventService implements IService {
     @Produces({MediaType.APPLICATION_JSON})
     public Response addEvent(String content, @Context HttpHeaders headers) {
         String eId = "";
-        String uID = "";
         if(headers.getRequestHeader("API_KEY") == null || headers.getRequestHeader("uID") == null) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         String API_KEY = headers.getRequestHeader("API_KEY").get(0);
         String authID = headers.getRequestHeader("uID").get(0);
+
         if(!Auth.Authenticate_User(API_KEY, authID)) return Response.status(Response.Status.UNAUTHORIZED).entity(new Document("error", "Unauthorized").toJson()).build();
         try {
             HandleEventObject temp = custom_gson.fromJson(content, HandleEventObject.class);
@@ -153,14 +153,10 @@ public class EventService implements IService {
             Event newEvent = new Event(temp.getName(), temp.getDescription(), temp.getMaxParticipators(), temp.getMinAge(), temp.getStartDate(), temp.getEndDate(), temp.getLocation(), temp.getType(), temp.getCategory(), x);
             eId = emc.add(newEvent);
             newEvent.seteID(eId);
-            emc.update(eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
-            //uID = headers.getRequestHeader("uID").get(0);
-            //SlimEvent se = new SlimEvent(eId, newEvent.getName(), newEvent.getTotalLikes(), newEvent.getMaxParticipators(), newEvent.getTotalParticipators(), newEvent.getCategory());
-            //umc.update(Filters.eq("uID", uID), new Document("$push", new Document("participatesIn", Document.parse(custom_gson.toJson(se)))));
-            //User y = umc.getOneFilter(eq("uID", uID), new Document(), User.class);
-            //umc.update(eq("uID", authID), new Document("numberOfCreated", y.getNumberOfCreated() + 1));
+            UpdateResult update = emc.update(eq("_id", new ObjectId(eId)), new Document("$set", new Document("eID", eId)));
+            User oneFilter = umc.getOneFilter(eq("uID", authID), new Document(), User.class);
+            umc.update(eq("uID", authID), new Document("$set", new Document("numberOfCreated", oneFilter.getNumberOfCreated() + 1)));
         } catch (Exception e) {
-            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new Document("Error: EventSerivce - getMinimalEvents", "Exception:  " + e.getMessage()).toJson()).build();
         }
         return Response.status(Response.Status.OK).entity(new Document("eID", eId).toJson()).build();
