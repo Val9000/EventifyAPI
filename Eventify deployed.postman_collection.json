@@ -5,9 +5,16 @@
 	"order": [],
 	"folders": [
 		{
+			"owner": "3278867",
+			"lastUpdatedBy": "3278867",
+			"lastRevision": 3846377840,
+			"folder": null,
+			"id": "83220327-f414-e457-5d36-e7b4305f8b02",
 			"name": "Events",
 			"description": "",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"variables": null,
+			"auth": null,
+			"events": null,
 			"order": [
 				"b777fb6d-e44e-834c-7eff-9db37bb747f9",
 				"84a49b32-40ed-1f73-4a3a-82bed5ad89d7",
@@ -17,36 +24,51 @@
 				"d91e3421-17c7-0a3b-2c87-3819721e08ae",
 				"04b4ea0b-4cab-277e-f0b1-4a6548b11135"
 			],
-			"owner": "3278867",
-			"folders_order": [],
-			"id": "83220327-f414-e457-5d36-e7b4305f8b02"
+			"folders_order": []
 		},
 		{
+			"owner": "3278867",
+			"lastUpdatedBy": "3278867",
+			"lastRevision": 3846377841,
+			"folder": null,
+			"id": "fcfc9f44-6cdf-8bcb-d97c-5382fc6a51fc",
 			"name": "Login",
 			"description": "",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"variables": null,
+			"auth": null,
+			"events": null,
 			"order": [
 				"5adb4841-088e-9de9-5fb9-ddca4207c834"
 			],
-			"owner": "3278867",
-			"folders_order": [],
-			"id": "fcfc9f44-6cdf-8bcb-d97c-5382fc6a51fc"
+			"folders_order": []
 		},
 		{
+			"owner": "3278867",
+			"lastUpdatedBy": "3278867",
+			"lastRevision": 3846377842,
+			"folder": null,
+			"id": "0fb5e2a9-90b2-fb11-5cd5-fb230074b76d",
 			"name": "Register",
 			"description": "",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"variables": null,
+			"auth": null,
+			"events": null,
 			"order": [
 				"e53f435c-7653-08bc-97b9-602a4e900e55"
 			],
-			"owner": "3278867",
-			"folders_order": [],
-			"id": "0fb5e2a9-90b2-fb11-5cd5-fb230074b76d"
+			"folders_order": []
 		},
 		{
+			"owner": "3278867",
+			"lastUpdatedBy": "3278867",
+			"lastRevision": 3846377844,
+			"folder": null,
+			"id": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
 			"name": "Users",
 			"description": "",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
+			"variables": null,
+			"auth": null,
+			"events": null,
 			"order": [
 				"7b4263b5-f726-aeaf-28a4-9046f7cf8663",
 				"373fa287-4d5b-0424-d642-3fe613c15852",
@@ -55,9 +77,7 @@
 				"7e20e569-8d29-b8bf-8a38-a208774b12d0",
 				"c50fc1d3-31bd-fed9-66ff-fc893957ac2a"
 			],
-			"owner": "3278867",
-			"folders_order": [],
-			"id": "8dccf404-d74d-9273-f5be-dbd73176e1c9"
+			"folders_order": []
 		}
 	],
 	"folders_order": [
@@ -66,23 +86,23 @@
 		"83220327-f414-e457-5d36-e7b4305f8b02",
 		"8dccf404-d74d-9273-f5be-dbd73176e1c9"
 	],
-	"timestamp": 1526325985357,
+	"timestamp": 0,
 	"owner": "3278867",
 	"public": false,
 	"requests": [
 		{
 			"id": "04b4ea0b-4cab-277e-f0b1-4a6548b11135",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u4ID}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u4ID}}",
 					"description": "",
 					"enabled": true
 				},
@@ -99,7 +119,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af97265a2d6f5424884dff1/participate",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/{{e1ID}}/like",
 			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -111,31 +131,30 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326481415,
-			"name": "/api/events/{eID}/participate",
-			"description": "Participate in event",
+			"time": 1529313647002,
+			"name": "/api/events/{eID}/{action}",
+			"description": "Participate/Like event",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": " {\n \t\"type\": \"Public\"\n }"
+			"rawModeData": " {\n   \"type\": \"Anonymous\"\n }"
 		},
 		{
 			"id": "1984f788-268b-9a6d-f112-24d75776e4c4",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u1ID}}\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af8644b6570441b5404c3e3/participators",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/{{e1ID}}/participators",
 			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -147,30 +166,29 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326484182,
+			"time": 1529313433905,
 			"name": "/api/events/{eID}/participators",
 			"description": "Get all participators of an event",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "373fa287-4d5b-0424-d642-3fe613c15852",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/users/list/participatesIn",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/list/createdEvents",
 			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -179,19 +197,17 @@
 			"method": "GET",
 			"data": null,
 			"dataMode": "params",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326479884,
+			"time": 1529314143746,
 			"name": "/api/users/list/{listName}",
 			"description": "Get list of current User",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "5adb4841-088e-9de9-5fb9-ddca4207c834",
-			"headers": "Content-Type: application/json\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headers": "Content-Type: application/json\nAPI_KEY: {{API_KEY}}\n",
 			"headerData": [
 				{
 					"key": "Content-Type",
@@ -201,7 +217,7 @@
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				}
@@ -218,31 +234,30 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326365491,
+			"time": 1529312930416,
 			"name": "/api/login",
 			"description": "Login as User",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": "{\n\t\"email\": \"val@val.com\",\n\t\"password\": \"val\"\n}"
+			"rawModeData": "{\n  \"email\": \"jbl@gmail.com\",\n  \"password\": \"jbl\"\n}"
 		},
 		{
 			"id": "5f0f4e79-6097-f117-9f68-7f7d7de14142",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/{{u2ID}}",
 			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -251,29 +266,27 @@
 			"method": "GET",
 			"data": null,
 			"dataMode": "params",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326479192,
+			"time": 1529313812920,
 			"name": "/api/users/{uID}",
 			"description": "Get specific Users profile",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "6c80975e-a710-b9d4-98bd-7aec88c5ef98",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u1ID}}\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				}
@@ -290,25 +303,24 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326485199,
+			"time": 1529313368446,
 			"name": "/api/events/minimal",
 			"description": "Get all minimal events",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "7b4263b5-f726-aeaf-28a4-9046f7cf8663",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				}
@@ -322,29 +334,27 @@
 			"method": "GET",
 			"data": null,
 			"dataMode": "params",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326480684,
+			"time": 1529313768014,
 			"name": "/api/users",
 			"description": "Get current User",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "7e20e569-8d29-b8bf-8a38-a208774b12d0",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
@@ -355,7 +365,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/{{u2ID}}",
 			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -364,35 +374,33 @@
 			"method": "PUT",
 			"data": [],
 			"dataMode": "raw",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326477704,
+			"time": 1529314121978,
 			"name": "/api/users/{uID}",
 			"description": "Change field of user",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+			"rawModeData": "{\n  \"firstName\": \"Marcel\"\n}"
 		},
 		{
 			"id": "84a49b32-40ed-1f73-4a3a-82bed5ad89d7",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u1ID}}\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af8644b6570441b5404c3e3/",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/{{e1ID}}",
 			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -404,25 +412,24 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326486099,
+			"time": 1529313393981,
 			"name": "/api/events/{eID}",
 			"description": "Get one specific event",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "b777fb6d-e44e-834c-7eff-9db37bb747f9",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				}
@@ -436,29 +443,27 @@
 			"method": "GET",
 			"data": null,
 			"dataMode": "params",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326487422,
+			"time": 1529312956205,
 			"name": "/api/events",
 			"description": "Get all Events",
-			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": []
+			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791"
 		},
 		{
 			"id": "c50fc1d3-31bd-fed9-66ff-fc893957ac2a",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
@@ -469,7 +474,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/users/5af97beaa2d6f54cd4ec75fd/follow",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/users/{{u2ID}}/follow",
 			"folder": "8dccf404-d74d-9273-f5be-dbd73176e1c9",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -478,30 +483,28 @@
 			"method": "PUT",
 			"data": [],
 			"dataMode": "raw",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326475603,
+			"time": 1529313895661,
 			"name": "/api/users/{uID}/follow",
 			"description": "Follow user",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
 			"rawModeData": ""
 		},
 		{
 			"id": "c58dbc5d-9622-9124-faf5-621ec92bd55a",
-			"headers": "uID: 5af9599ca2d6f53ca8b702a7\nAPI_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headers": "uID: {{u1ID}}\nAPI_KEY: {{API_KEY}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
@@ -521,30 +524,28 @@
 			"method": "PUT",
 			"data": [],
 			"dataMode": "raw",
-			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326478345,
+			"time": 1529314018829,
 			"name": "/api/users/",
 			"description": "Change field of logged in user",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": "{\n\t\"name\": \"val22\"\n}"
+			"rawModeData": "{\n  \"firstName\": \"Christian\"\n}"
 		},
 		{
 			"id": "d91e3421-17c7-0a3b-2c87-3819721e08ae",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u1ID}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u1ID}}",
 					"description": "",
 					"enabled": true
 				},
@@ -561,7 +562,7 @@
 					"enabled": true
 				}
 			],
-			"url": "https://eventifyapi.herokuapp.com/rest/api/events/5af97265a2d6f5424884dff1/",
+			"url": "https://eventifyapi.herokuapp.com/rest/api/events/{{e2ID}}/",
 			"folder": "83220327-f414-e457-5d36-e7b4305f8b02",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -573,26 +574,25 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326482336,
+			"time": 1529313608550,
 			"name": "/api/events/{eID}",
 			"description": "Change Field",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": "{\n\t\"name\": \"suicide2\"\n}"
+			"rawModeData": "{\n  \"name\": \"Winklers Crazy LAN Party\"\n}"
 		},
 		{
 			"id": "ddac9cd8-fcb9-5aa6-d7ba-f41f08b06517",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nuID: 5af9599ca2d6f53ca8b702a7\nContent-Type: application/json\n",
+			"headers": "API_KEY: {{API_KEY}}\nuID: {{u2ID}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "uID",
-					"value": "5af9599ca2d6f53ca8b702a7",
+					"value": "{{u2ID}}",
 					"description": "",
 					"enabled": true
 				},
@@ -615,20 +615,19 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326483195,
+			"time": 1529313334839,
 			"name": "/api/events",
 			"description": "Create an event",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": "{\n\t\"name\": \"suicide\",\n\t\"description\": \"die\",\n\t\"maxParticipators\": 20,\n\t\"minAge\": 18,\n\t\"startDate\": \"2018-05-05T12:00:00.000Z\",\n\t\"endDate\": \"2018-05-05T13:00:00.000Z\",\n\t\"location\": {\n\t\t\"lat\": 43.235235,\n\t\t\"lon\": 124.342532\n\t},\n\t\"type\": \"Public\",\n\t\"category\": \"Activity\",\n\t\"user\": {\n\t\t\"uID\": \"5af9599ca2d6f53ca8b702a7\",\n\t\t\"firstName\": \"valibu\",\n\t\t\"lastName\": \"berisa\",\n\t\t\"profilePicture\": \"lol.png\"\n\t}\n}"
+			"rawModeData": "{\n  \"name\": \"Coding Session\",\n  \"description\": \"Machine Learning with TensorFlowJS\",\n  \"maxParticipators\": 50,\n  \"minAge\": 1,\n  \"startDate\": \"2018-09-01T18:00:00.000Z\",\n  \"endDate\": \"2018-09-02T04:00:00.000Z\",\n  \"location\": {\n    \"lat\": 46.602207,\n    \"lon\": 13.843135\n  },\n  \"type\": \"Public\",\n  \"category\": \"Activity\"\n}"
 		},
 		{
 			"id": "e53f435c-7653-08bc-97b9-602a4e900e55",
-			"headers": "API_KEY: dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN\nContent-Type: application/json\n",
+			"headers": "API_KEY: {{API_KEY}}\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "API_KEY",
-					"value": "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN",
+					"value": "{{API_KEY}}",
 					"description": "",
 					"enabled": true
 				},
@@ -651,12 +650,11 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1526326371159,
+			"time": 1529312891079,
 			"name": "/api/register",
 			"description": "Register a user",
 			"collectionId": "0312225a-ab15-b3fd-4ecd-12aca735f791",
-			"responses": [],
-			"rawModeData": " {\n \t\"firstName\": \"christian\",\n \t\"lastName\": \"winkler\",\n \t\"birthdate\": \"1999-09-28T01:01:01.999Z\",\n \t\"email\": \"chris@bashit.me\",\n \t\"password\": \"password\"\n }"
+			"rawModeData": " {\n   \"firstName\": \"Julian\",\n   \"lastName\": \"Blaschke\",\n   \"birthdate\": \"2012-12-28T01:01:01.999Z\",\n   \"email\": \"jbl@gmail.com\",\n   \"password\": \"jbl\"\n }"
 		}
 	]
 }
