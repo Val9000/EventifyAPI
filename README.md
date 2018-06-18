@@ -39,7 +39,7 @@ This app will manage user created eventActivities. They can be added, edited and
 
 * *[Class Diagram Screenshot](https://raw.githubusercontent.com/Chris6077/Eventify/master/misc/diagram.png)*
 
-# Webservice
+# Webservice ![Heroku](https://heroku-badge.herokuapp.com/?app=eventifyapi&root=swagger)
 
 Our services are Java based and will be deployed on herokuapp.
 
